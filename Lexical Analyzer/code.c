@@ -3,15 +3,14 @@
 #include <stdlib.h>
 #include <limits.h>
 
-char bstack[100];
 
-struct hashtable{
+struct Table{
     char name[100];
     char type[100];
     int len;
-} table[1000];
+} symbolTable[1000];
 
-int Hash(char *s){
+int hashFunction(char *s){
     int mod = 1001;
     int l = strlen(s), val = 0, i;
     for(i = 0; i < l; i++){
@@ -24,44 +23,44 @@ int Hash(char *s){
     return val;
 }
 
-void insert_symbol(char *lexeme, char *token_name){
+void insertLexeme(char *lexeme, char *token_name){
     
     int l1 = strlen(lexeme);
     int l2 = strlen(token_name);
-    int v = Hash(lexeme);
-    if(table[v].len == 0){
-        strcpy(table[v].name, lexeme);
-        strcpy(table[v].type, token_name);
+    int v = hashFunction(lexeme);
+    if(symbolTable[v].len == 0){
+        strcpy(symbolTable[v].name, lexeme);
+        strcpy(symbolTable[v].type, token_name);
         
-        table[v].len = strlen(lexeme);
+        symbolTable[v].len = strlen(lexeme);
         return;
     }
 
-    if(strcmp(table[v].name,lexeme) == 0)
+    if(strcmp(symbolTable[v].name,lexeme) == 0)
     return;
 
     int i, pos = 0;
 
     for (i = 0; i < 1001; i++){
-        if(table[i].len == 0){
+        if(symbolTable[i].len == 0){
             pos = i;
             break;
         }
     }
 
-    strcpy(table[pos].name, lexeme);
-    strcpy(table[pos].type, token_name);
-    table[pos].len = strlen(lexeme);
+    strcpy(symbolTable[pos].name, lexeme);
+    strcpy(symbolTable[pos].type, token_name);
+    symbolTable[pos].len = strlen(lexeme);
 
 }
 
 void print(){
     int i;
     for(i = 0;i < 1001; i++){
-        if(table[i].len == 0){
+        if(symbolTable[i].len == 0){
             continue;
         }
-        printf("%15s \t %40s\n",table[i].name,table[i].type);
+        printf("%15s \t %40s\n",symbolTable[i].name,symbolTable[i].type);
     }
 }
 
@@ -71,7 +70,7 @@ int main(){
 
     int i;
     for (i = 0; i < 1001; i++){
-        table[i].len=0;
+        symbolTable[i].len=0;
     }
     yyin = fopen("test1.c","r");
 

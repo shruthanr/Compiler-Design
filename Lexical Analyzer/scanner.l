@@ -3,16 +3,10 @@
     #include<string.h>
 	#include <stdlib.h>
 
-    struct hashtable {
-        char name[100];
-        char type[100];
-        int len;
-    } table[1000];
-
-	int btop = -1;
-	int nested_comment_stack = 0;
+    int stackTop = -1;
+	int nestedCommentStack = 0;
 	int line = 0;
-	char bstack[100];
+	char parenthesisStack[100];
 	
     
 %}
@@ -41,54 +35,54 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 
 \{ {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (btop == -1){
-		bstack[0]='{'; btop=1;} 
+	if (stackTop == -1){
+		parenthesisStack[0]='{'; stackTop=1;} 
 	else {
-        bstack[btop]='{';
-	    btop++;
+        parenthesisStack[stackTop]='{';
+	    stackTop++;
     }
 }
 \} {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(bstack[btop-1] != '{')
+	if(parenthesisStack[stackTop-1] != '{')
 		printf("ERROR: Unbalanced parenthesis at line number: %d\n",line);
-	btop--;
+	stackTop--;
 }
 \( {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(btop == -1){
-		bstack[0] = '('; 
-        btop=1;
+	if(stackTop == -1){
+		parenthesisStack[0] = '('; 
+        stackTop=1;
     }
 	else {
-        bstack[btop]='(';
-    	btop++;
+        parenthesisStack[stackTop]='(';
+    	stackTop++;
     }
 }
 \) {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(bstack[btop-1] != '(')
+	if(parenthesisStack[stackTop-1] != '(')
 		printf("ERROR: UNBALANCED PARENTHESIS AT LINE NUMBER: %d\n",line);
-	btop--;
+	stackTop--;
 }
 
 \[ {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (btop == -1){
-		bstack[0]='['; 
-        btop=1;
+	if (stackTop == -1){
+		parenthesisStack[0]='['; 
+        stackTop=1;
     }
 	else {
-        bstack[btop]='[';
-    	btop++;
+        parenthesisStack[stackTop]='[';
+    	stackTop++;
     }
 }
 
 \] {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (bstack[btop-1] != '[')
+	if (parenthesisStack[stackTop-1] != '[')
 		printf("ERROR: UNBALANCED PARENTHESIS AT LINE NUMBER: %d\n",line);
-	btop--;
+	stackTop--;
 }
 \\ {
     printf("%s \t- Forward Slash\n", yytext);
@@ -99,7 +93,7 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 
 "/*" {
     BEGIN(comment); 
-    nested_comment_stack=1; 
+    nestedCommentStack=1; 
     yymore();
 }
 <comment><<EOF>> {
@@ -110,7 +104,7 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
     yyterminate();
 }
 <comment>"/*" {
-    nested_comment_stack++; 
+    nestedCommentStack++; 
     yymore();
 }
 <comment>. {
@@ -121,13 +115,13 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
     line++;
 }
 <comment>"*/" {
-    nested_comment_stack--;
-    if(nested_comment_stack<0)
+    nestedCommentStack--;
+    if(nestedCommentStack<0)
     {
         printf("\n \"%s\"\t---- ERROR: Unbalanced comment at line: %d.", yytext, line);
         yyterminate();
     }
-    else if(nested_comment_stack==0)
+    else if(nestedCommentStack==0)
     {
         BEGIN(INITIAL);
     }
@@ -149,25 +143,25 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 }
 {String} {
     printf("%s \t---- String \n", yytext); 
-    insert_symbol(yytext,"String Constant");
+    insertLexeme(yytext,"String Constant");
 }
 {MultiLineComment} {
     printf("%s \t---- Multi-Line Comment\n", yytext);
 }
 {Keyword} {
     printf("%s \t---- Keyword\n", yytext); 
-    insert_symbol(yytext, "Keyword");
+    insertLexeme(yytext, "Keyword");
 }
 {Identifier} {
     printf("%s \t---- Identifier\n", yytext); 
-    insert_symbol(yytext, "Identifier");
+    insertLexeme(yytext, "Identifier");
 }
 {InvalidIdentifier} {
     printf("%s \t---- ERROR: Invalid Identifier\n", yytext);
 }
 {NumericConstant} {
     printf("%s \t---- Numeric Constant\n", yytext); 
-    insert_symbol(yytext, "Numeric Constant");
+    insertLexeme(yytext, "Numeric Constant");
 }
 {ArithmeticOperator} {
     printf("%s \t---- Arithmetic\n", yytext);
