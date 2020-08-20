@@ -13,16 +13,16 @@
 %x comment
 
 Preprocessor #(include<.*>|define.*|ifdef|endif|if|else|ifndef|undef|pragma)
-String \".*\"|\'.*\'
-InvalidString \"[^"\n]*|\'[^'\n]* 
-SINGLELINE \/\/.*
-MultiLineComment "/*"([^*]|\*+[^*/])*\*+"/"
-Keyword auto|const|default|enum|extern|register|return|sizeof|static|struct|typedef|union|volatile|break|continue|goto|else|switch|if|case|default|for|do|while|char|double|float|int|long|short|signed|unsigned|void
-Identifier [a-zA-Z_]([a-zA-Z0-9_])*
-NumericConstant [1-9][0-9]*(\.[0-9]+)?|0(\.[0-9]+)? 
 ArithmeticOperator \+\+|\-\-|\+|\-|\*|\/|=
 ComparisionOperator <=|>=|<|>
 BitwiseOperator \^|\%|\&|\||\~
+Identifier [a-zA-Z_]([a-zA-Z0-9_])*
+NumericConstant [1-9][0-9]*(\.[0-9]+)?|0(\.[0-9]+)? 
+String \".*\"|\'.*\'
+InvalidString \"[^"\n]*|\'[^'\n]* 
+SingleLineComment \/\/.*
+MultiLineComment "/*"([^*]|\*+[^*/])*\*+"/"
+Keyword auto|const|default|enum|extern|register|return|sizeof|static|struct|typedef|union|volatile|break|continue|goto|else|switch|if|case|default|for|do|while|char|double|float|int|long|short|signed|unsigned|void
 InvalidID [^\n\t ]
 InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 
