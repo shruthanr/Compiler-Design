@@ -3,7 +3,7 @@
     #include<string.h>
 	#include <stdlib.h>
 
-    int stackTop = -1;
+    int stackTop = 0;
 	int nestedCommentStack = 0;
 	int line = 0;
 	char parenthesisStack[100];
@@ -35,61 +35,47 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 
 \{ {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (stackTop == -1){
-		parenthesisStack[0]='{'; stackTop=1;} 
-	else {
-        parenthesisStack[stackTop]='{';
-	    stackTop++;
-    }
+    parenthesisStack[stackTop]='{';
+	stackTop++;
+   
 }
 \} {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(parenthesisStack[stackTop-1] != '{')
+	if(stackTop == 0 || parenthesisStack[stackTop-1] != '{')
 		printf("ERROR: Unbalanced parenthesis at line number: %d\n",line);
 	stackTop--;
 }
 \( {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(stackTop == -1){
-		parenthesisStack[0] = '('; 
-        stackTop=1;
-    }
-	else {
-        parenthesisStack[stackTop]='(';
-    	stackTop++;
-    }
+	parenthesisStack[stackTop]='(';
+    stackTop++;
 }
 \) {
     printf("%s \t---- Parenthesis\n", yytext);
-	if(parenthesisStack[stackTop-1] != '(')
+	if(stackTop == 0 || parenthesisStack[stackTop-1] != '(')
 		printf("ERROR: UNBALANCED PARENTHESIS AT LINE NUMBER: %d\n",line);
 	stackTop--;
 }
 
 \[ {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (stackTop == -1){
-		parenthesisStack[0]='['; 
-        stackTop=1;
-    }
-	else {
-        parenthesisStack[stackTop]='[';
-    	stackTop++;
-    }
+	parenthesisStack[stackTop]='[';
+    stackTop++;
 }
 
 \] {
     printf("%s \t---- Parenthesis\n", yytext);
-	if (parenthesisStack[stackTop-1] != '[')
+	if (stackTop == 0 || parenthesisStack[stackTop-1] != '[')
 		printf("ERROR: UNBALANCED PARENTHESIS AT LINE NUMBER: %d\n",line);
 	stackTop--;
 }
 \\ {
-    printf("%s \t- Forward Slash\n", yytext);
+    printf("%s \t- Backward Slash\n", yytext);
 }
 \. {
     printf("%s \t- Dot Delimiter\n", yytext);
 }
+
 
 "/*" {
     BEGIN(comment); 
@@ -143,25 +129,25 @@ InvalidIdentifier ([0-9\*\-\+\%\/]+[a-zA-Z][a-zA-Z0-9\*\-\+\%\/]*)
 }
 {String} {
     printf("%s \t---- String \n", yytext); 
-    insertLexeme(yytext,"String Constant");
+    insertToken(yytext,"String Constant");
 }
 {MultiLineComment} {
     printf("%s \t---- Multi-Line Comment\n", yytext);
 }
 {Keyword} {
     printf("%s \t---- Keyword\n", yytext); 
-    insertLexeme(yytext, "Keyword");
+    insertToken(yytext, "Keyword");
 }
 {Identifier} {
     printf("%s \t---- Identifier\n", yytext); 
-    insertLexeme(yytext, "Identifier");
+    insertToken(yytext, "Identifier");
 }
 {InvalidIdentifier} {
     printf("%s \t---- ERROR: Invalid Identifier\n", yytext);
 }
 {NumericConstant} {
     printf("%s \t---- Numeric Constant\n", yytext); 
-    insertLexeme(yytext, "Numeric Constant");
+    insertToken(yytext, "Numeric Constant");
 }
 {ArithmeticOperator} {
     printf("%s \t---- Arithmetic\n", yytext);

@@ -7,7 +7,7 @@ struct Table{
     char name[100];
     char type[100];
     int len;
-} symbolTable[1000];
+} symbolTable[1001];
 
 int hashFunction(char *s){
     int mod = 1001;
@@ -22,34 +22,38 @@ int hashFunction(char *s){
     return val;
 }
 
-void insertLexeme(char *lexeme, char *token_name){
+void insertToken(char *token, char *tokenType){
     
-    int l1 = strlen(lexeme);
-    int l2 = strlen(token_name);
-    int v = hashFunction(lexeme);
+    int l1 = strlen(token);
+    int l2 = strlen(tokenType);
+    int v = hashFunction(token);
     if(symbolTable[v].len == 0){
-        strcpy(symbolTable[v].name, lexeme);
-        strcpy(symbolTable[v].type, token_name);
+        strcpy(symbolTable[v].name, token);
+        strcpy(symbolTable[v].type, tokenType);
         
-        symbolTable[v].len = strlen(lexeme);
+        symbolTable[v].len = strlen(token);
         return;
     }
 
-    if(strcmp(symbolTable[v].name,lexeme) == 0)
-    return;
+    if (strcmp(symbolTable[v].name,token) == 0)
+        return;
 
     int i, pos = 0;
 
-    for (i = 0; i < 1001; i++){
-        if(symbolTable[i].len == 0){
-            pos = i;
+    for (i = 1; i < 1001; i++){
+        int x = (i+v)%1001;
+        if (strcmp(symbolTable[x].name,token) == 0)
+            return;
+        if(symbolTable[x].len == 0){
+
+            pos = x;
             break;
         }
     }
-
-    strcpy(symbolTable[pos].name, lexeme);
-    strcpy(symbolTable[pos].type, token_name);
-    symbolTable[pos].len = strlen(lexeme);
+   
+    strcpy(symbolTable[pos].name, token);
+    strcpy(symbolTable[pos].type, tokenType);
+    symbolTable[pos].len = strlen(token);
 
 }
 
@@ -69,13 +73,16 @@ int main(){
 
     int i;
     for (i = 0; i < 1001; i++){
-        symbolTable[i].len=0;
+        strcpy(symbolTable[i].name, "");
+        strcpy(symbolTable[i].type, "");
+        symbolTable[i].len = 0;
     }
     yyin = fopen("test.c","r");
 
     yylex();
     printf("\n\n----------------------------------------------------------------------------\n\t\t\t\tSYMBOL TABLE\n----------------------------------------------------------------------------\n");   
-	printf("\tLexeme \t\t\t\t\t\tToken\n"); 
+	printf("\tToken \t\t\t\t\t\tToken Type\n"); 
 	printf("----------------------------------------------------------------------------\n");
     print();
 }
+
