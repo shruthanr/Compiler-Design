@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-
 struct Table{
     char name[100];
     char type[100];
@@ -72,7 +71,7 @@ int main(){
     for (i = 0; i < 1001; i++){
         symbolTable[i].len=0;
     }
-    yyin = fopen("test1.c","r");
+    yyin = fopen("test.c","r");
 
     yylex();
     printf("\n\n----------------------------------------------------------------------------\n\t\t\t\tSYMBOL TABLE\n----------------------------------------------------------------------------\n");   
