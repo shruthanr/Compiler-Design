@@ -867,339 +867,480 @@ YY_RULE_SETUP
 case 8:
 YY_RULE_SETUP
 #line 26 "scanner.l"
-{ yylval.str = strdup(yytext); return STRING_CONSTANT; }
+{ 
+	yylval.str = strdup(yytext); 
+	return STRING_CONSTANT; 
+}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "scanner.l"
-{ yylval.str = strdup(yytext); return CHAR_CONSTANT; }
+#line 30 "scanner.l"
+{ 
+	yylval.str = strdup(yytext); 
+	return CHAR_CONSTANT; 
+}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "scanner.l"
-{ yylval.str = strdup(yytext); return INT_CONSTANT; }
+#line 34 "scanner.l"
+{ 
+	yylval.str = strdup(yytext); 
+	return INT_CONSTANT; 
+}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "scanner.l"
-{ yylval.str = strdup(yytext); return FLOAT_CONSTANT; }
+#line 38 "scanner.l"
+{ 
+	yylval.str = strdup(yytext); 
+	return FLOAT_CONSTANT; 
+}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "scanner.l"
-{ yylval.str = strdup(yytext); return FLOAT_CONSTANT; }
+#line 42 "scanner.l"
+{
+	 yylval.str = strdup(yytext); 
+	 return FLOAT_CONSTANT; 
+}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 "scanner.l"
-{  return SIZEOF; }
+#line 47 "scanner.l"
+{  
+	return SIZEOF; 
+}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 33 "scanner.l"
-{  return INC_OP; }
+#line 50 "scanner.l"
+{  
+	return INC_OP; 
+}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 34 "scanner.l"
-{  return DEC_OP; }
+#line 53 "scanner.l"
+{  
+	return DEC_OP; 
+}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 35 "scanner.l"
-{  return LEFT_OP; }
+#line 56 "scanner.l"
+{  
+	return LEFT_OP; 
+}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 36 "scanner.l"
-{  return RIGHT_OP; }
+#line 59 "scanner.l"
+{  
+	return RIGHT_OP; 
+}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 37 "scanner.l"
-{  return LE_OP; }
+#line 62 "scanner.l"
+{  
+	return LE_OP; 
+}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 38 "scanner.l"
-{  return GE_OP; }
+#line 65 "scanner.l"
+{  
+	return GE_OP;
+}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 39 "scanner.l"
-{  return EQ_OP; }
+#line 68 "scanner.l"
+{  
+	return EQ_OP; 
+}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 40 "scanner.l"
-{  return NE_OP; }
+#line 71 "scanner.l"
+{  
+	return NE_OP; 
+}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 41 "scanner.l"
-{  return AND_OP; }
+#line 74 "scanner.l"
+{  
+	return AND_OP; 
+}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 42 "scanner.l"
-{  return OR_OP; }
+#line 77 "scanner.l"
+{  
+	return OR_OP; 
+}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 43 "scanner.l"
-{  return MUL_ASSIGN; }
+#line 80 "scanner.l"
+{  
+	return MUL_ASSIGN; 
+}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 44 "scanner.l"
-{  return DIV_ASSIGN; }
+#line 83 "scanner.l"
+{  
+	return DIV_ASSIGN; 
+}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 45 "scanner.l"
-{  return MOD_ASSIGN; }
+#line 86 "scanner.l"
+{  
+	return MOD_ASSIGN; 
+}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 46 "scanner.l"
-{  return ADD_ASSIGN; }
+#line 89 "scanner.l"
+{  
+	return ADD_ASSIGN; 
+}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 47 "scanner.l"
-{  return SUB_ASSIGN; }
+#line 92 "scanner.l"
+{  
+	return SUB_ASSIGN; 
+}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 48 "scanner.l"
-{  return LEFT_ASSIGN; }
+#line 95 "scanner.l"
+{  
+	return LEFT_ASSIGN;
+}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 49 "scanner.l"
-{  return RIGHT_ASSIGN; }
+#line 98 "scanner.l"
+{  
+	return RIGHT_ASSIGN; 
+}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 50 "scanner.l"
-{  return AND_ASSIGN; }
+#line 101 "scanner.l"
+{  
+	return AND_ASSIGN; 
+}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 51 "scanner.l"
-{  return XOR_ASSIGN; }
+#line 104 "scanner.l"
+{  
+	return XOR_ASSIGN; 
+}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 52 "scanner.l"
-{  return OR_ASSIGN; }
+#line 107 "scanner.l"
+{  
+	return OR_ASSIGN; 
+}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 53 "scanner.l"
-{  yylval.str = strdup(yytext); return CHAR; }
+#line 110 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return CHAR; 
+}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 54 "scanner.l"
-{  yylval.str = strdup(yytext); return SHORT; }
+#line 114 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return SHORT; 
+}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 55 "scanner.l"
-{  yylval.str = strdup(yytext); return INT; }
+#line 118 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return INT; 
+}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 56 "scanner.l"
-{  yylval.str = strdup(yytext); return LONG; }
+#line 122 "scanner.l"
+{  
+	yylval.str = strdup(yytext);
+	 return LONG; 
+}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 57 "scanner.l"
-{  yylval.str = strdup(yytext); return SIGNED; }
+#line 126 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return SIGNED; 
+}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 58 "scanner.l"
-{  yylval.str = strdup(yytext); return UNSIGNED; }
+#line 130 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return UNSIGNED; 
+}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 59 "scanner.l"
-{  yylval.str = strdup(yytext); return VOID; }
+#line 134 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return VOID; 
+}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 60 "scanner.l"
-{  return IF; }
+#line 138 "scanner.l"
+{  
+	return IF; 
+}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 61 "scanner.l"
-{  return ELSE; }
+#line 141 "scanner.l"
+{  
+	return ELSE; 
+}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 62 "scanner.l"
-{  return WHILE; }
+#line 144 "scanner.l"
+{  
+	return WHILE; 
+}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 63 "scanner.l"
-{  return BREAK; }
+#line 147 "scanner.l"
+{  
+	return BREAK;
+}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 64 "scanner.l"
-{  return RETURN; }
+#line 150 "scanner.l"
+{  
+	return RETURN; 
+}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 65 "scanner.l"
-{  return(';'); }
+#line 153 "scanner.l"
+{  
+	return(';'); 
+}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 66 "scanner.l"
-{  return('{'); }
+#line 156 "scanner.l"
+{  
+	return('{'); 
+}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 67 "scanner.l"
-{  return('}'); }
+#line 159 "scanner.l"
+{  
+	return('}'); 
+}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 68 "scanner.l"
-{  return(','); }
+#line 162 "scanner.l"
+{  
+	return(','); 
+}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 69 "scanner.l"
-{  return(':'); }
+#line 165 "scanner.l"
+{  
+	return(':'); 
+}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 70 "scanner.l"
-{  return('='); }
+#line 168 "scanner.l"
+{  
+	return('='); 
+}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 71 "scanner.l"
-{  return('('); }
+#line 171 "scanner.l"
+{  
+	return('('); 
+}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 72 "scanner.l"
-{  return(')'); }
+#line 174 "scanner.l"
+{  
+	return(')'); 
+}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 73 "scanner.l"
-{  return('['); }
+#line 177 "scanner.l"
+{  
+	return('['); 
+}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 74 "scanner.l"
-{  return(']'); }
+#line 180 "scanner.l"
+{   
+	return(']'); 
+}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 75 "scanner.l"
-{  return('.'); }
+#line 183 "scanner.l"
+{  
+	return('.'); 
+}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 76 "scanner.l"
-{  return('&'); }
+#line 186 "scanner.l"
+{  
+	return('&'); 
+}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 77 "scanner.l"
-{  return('!'); }
+#line 189 "scanner.l"
+{  
+	return('!'); 
+}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 78 "scanner.l"
-{  return('~'); }
+#line 192 "scanner.l"
+{  
+	return('~'); 
+}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 79 "scanner.l"
-{  return('-'); }
+#line 195 "scanner.l"
+{  
+	return('-'); 
+}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 80 "scanner.l"
-{  return('+'); }
+#line 198 "scanner.l"
+{  
+	return('+'); 
+}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 81 "scanner.l"
-{  return('*'); }
+#line 201 "scanner.l"
+{  
+	return('*'); 
+}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 82 "scanner.l"
-{  return('/'); }
+#line 204 "scanner.l"
+{  
+	return('/'); 
+}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 83 "scanner.l"
-{  return('%'); }
+#line 207 "scanner.l"
+{ 
+	return('%'); 
+}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 84 "scanner.l"
-{  return('<'); }
+#line 210 "scanner.l"
+{  
+	return('<'); 
+}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 85 "scanner.l"
-{  return('>'); }
+#line 213 "scanner.l"
+{  
+	return('>'); 
+}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 86 "scanner.l"
-{  return('^'); }
+#line 216 "scanner.l"
+{  
+	return('^'); 
+}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 87 "scanner.l"
-{  return('|'); }
+#line 219 "scanner.l"
+{  
+	return('|'); 
+}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 88 "scanner.l"
-{  return('?'); }
+#line 222 "scanner.l"
+{  
+	return('?'); 
+}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 89 "scanner.l"
-{  yylval.str = strdup(yytext); return IDENTIFIER;  }
+#line 225 "scanner.l"
+{  
+	yylval.str = strdup(yytext); 
+	return IDENTIFIER;  
+}
 	YY_BREAK
 case 71:
 /* rule 71 can match eol */
 YY_RULE_SETUP
-#line 90 "scanner.l"
+#line 229 "scanner.l"
 {  }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 91 "scanner.l"
-{ return EndOfFile;}
+#line 230 "scanner.l"
+{ 
+	return EndOfFile;
+}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 92 "scanner.l"
+#line 233 "scanner.l"
 { }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 93 "scanner.l"
+#line 234 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1203 "lex.yy.c"
+#line 1344 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2202,7 +2343,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 93 "scanner.l"
+#line 234 "scanner.l"
 
 yywrap()
 {
