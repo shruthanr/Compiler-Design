@@ -381,18 +381,28 @@ void constantInsert(char tokenName[], char DataType[])
 
 void showSymbolTable()
 {
-  printf("\n------------Symbol Table---------------------\n\nSNo\tToken\t\tDatatype\n\n");
+
+	printf("\n      Symbol Table         ");
+	printf("\n----------------------------\nToken\t\tDatatype\n");
+	printf("----------------------------\n");
 
   for(int j=0;j<i;j++)
-    printf("%d\t%s\t\t< %s >\t\t\n",j+1,symbolTable[j].token,symbolTable[j].dataType);
+    printf("%s\t\t %s \t\t\n",symbolTable[j].token,symbolTable[j].dataType);
+	printf("----------------------------\n\n");
+	
 }
 
 void showConstantTable()
 {
-  printf("\n------------Constant Table---------------------\n\nSNo\tConstant\t\tDatatype\n\n");
+	printf("\n      Constant Table      ");
+	printf("\n----------------------------\nConstant\tDatatype\n");
+	printf("----------------------------\n");
 
   for(int j=0;j<c;j++)
-    printf("%d\t%s\t\t< %s >\t\t\n",j+1,constantTable[j].token,constantTable[j].dataType);
+    printf("%s\t\t % s\t\t\n",constantTable[j].token,constantTable[j].dataType);
+	printf("----------------------------\n");
+	printf("\n");
+	
 }
 
 int err=0;
