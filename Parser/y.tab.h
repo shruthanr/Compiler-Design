@@ -102,12 +102,10 @@ union YYSTYPE
 {
 #line 19 "parser.y" /* glr.c:197  */
 
-        long int4;              /* Constant integer value */
-        float fp;               /* Constant floating point value */
         char *str;              /* Ptr to constant string (strings are malloc'd) */
     
 
-#line 111 "y.tab.h" /* glr.c:197  */
+#line 109 "y.tab.h" /* glr.c:197  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -258,22 +258,22 @@ static const unsigned char yytranslate[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const unsigned short int yyrline[] =
 {
-       0,    41,    41,    44,    45,    49,    50,    54,    55,    59,
-      60,    61,    62,    63,    64,    69,    70,    71,    72,    73,
-      74,    75,    79,    80,    84,    85,    86,    87,    91,    92,
-      93,    94,    95,    96,   100,   101,   105,   106,   107,   108,
-     112,   113,   114,   118,   119,   120,   124,   125,   126,   127,
-     128,   132,   133,   134,   138,   139,   143,   144,   148,   149,
-     153,   154,   158,   159,   163,   164,   168,   169,   173,   174,
-     175,   176,   177,   178,   179,   180,   181,   182,   183,   187,
-     188,   192,   196,   197,   201,   202,   206,   207,   211,   212,
-     216,   217,   218,   219,   220,   221,   222,   226,   227,   231,
-     235,   236,   237,   238,   239,   240,   241,   246,   250,   251,
-     255,   256,   257,   261,   262,   266,   267,   271,   275,   276,
-     277,   278,   279,   280,   281,   282,   283,   287,   288,   289,
-     293,   294,   298,   299,   300,   301,   302,   306,   307,   308,
-     309,   310,   311,   312,   316,   317,   321,   322,   326,   327,
-     331,   332,   336,   340,   341,   342,   343
+       0,    38,    38,    41,    42,    46,    47,    51,    52,    56,
+      57,    58,    59,    60,    61,    66,    67,    68,    69,    70,
+      71,    72,    76,    77,    81,    82,    83,    84,    88,    89,
+      90,    91,    92,    93,    97,    98,   102,   103,   104,   105,
+     109,   110,   111,   115,   116,   117,   121,   122,   123,   124,
+     125,   129,   130,   131,   135,   136,   140,   141,   145,   146,
+     150,   151,   155,   156,   160,   161,   165,   166,   170,   171,
+     172,   173,   174,   175,   176,   177,   178,   179,   180,   184,
+     185,   189,   193,   194,   198,   199,   203,   204,   208,   209,
+     213,   214,   215,   216,   217,   218,   219,   223,   224,   228,
+     232,   233,   234,   235,   236,   237,   238,   243,   247,   248,
+     252,   253,   254,   258,   259,   263,   264,   268,   272,   273,
+     274,   275,   276,   277,   278,   279,   280,   284,   285,   286,
+     290,   291,   295,   296,   297,   298,   299,   303,   304,   305,
+     306,   307,   308,   309,   313,   314,   318,   319,   323,   324,
+     328,   329,   333,   337,   338,   339,   340
 };
 #endif
 
@@ -1272,85 +1272,85 @@ yyuserAction (yyRuleNum yyn, size_t yyrhslen, yyGLRStackItem* yyvsp,
   switch (yyn)
     {
         case 2:
-#line 41 "parser.y" /* glr.c:816  */
+#line 38 "parser.y" /* glr.c:816  */
     {printf("Parsing successful\n"); showSymbolTable(); showConstantTable(); exit(0);}
 #line 1278 "y.tab.c" /* glr.c:816  */
     break;
 
   case 10:
-#line 60 "parser.y" /* glr.c:816  */
+#line 57 "parser.y" /* glr.c:816  */
     { constantInsert((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str), "string"); }
 #line 1284 "y.tab.c" /* glr.c:816  */
     break;
 
   case 11:
-#line 61 "parser.y" /* glr.c:816  */
+#line 58 "parser.y" /* glr.c:816  */
     { constantInsert((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str), "char"); }
 #line 1290 "y.tab.c" /* glr.c:816  */
     break;
 
   case 12:
-#line 62 "parser.y" /* glr.c:816  */
+#line 59 "parser.y" /* glr.c:816  */
     { constantInsert((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str), "float"); }
 #line 1296 "y.tab.c" /* glr.c:816  */
     break;
 
   case 13:
-#line 63 "parser.y" /* glr.c:816  */
+#line 60 "parser.y" /* glr.c:816  */
     { constantInsert((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str), "int"); }
 #line 1302 "y.tab.c" /* glr.c:816  */
     break;
 
   case 85:
-#line 202 "parser.y" /* glr.c:816  */
+#line 199 "parser.y" /* glr.c:816  */
     { /*strcpy(temp, $1); strcat(temp, " "); strcat(temp, type); strcpy(type, temp);*/ }
 #line 1308 "y.tab.c" /* glr.c:816  */
     break;
 
   case 90:
-#line 216 "parser.y" /* glr.c:816  */
+#line 213 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1314 "y.tab.c" /* glr.c:816  */
     break;
 
   case 91:
-#line 217 "parser.y" /* glr.c:816  */
+#line 214 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1320 "y.tab.c" /* glr.c:816  */
     break;
 
   case 92:
-#line 218 "parser.y" /* glr.c:816  */
+#line 215 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1326 "y.tab.c" /* glr.c:816  */
     break;
 
   case 93:
-#line 219 "parser.y" /* glr.c:816  */
+#line 216 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1332 "y.tab.c" /* glr.c:816  */
     break;
 
   case 94:
-#line 220 "parser.y" /* glr.c:816  */
+#line 217 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1338 "y.tab.c" /* glr.c:816  */
     break;
 
   case 95:
-#line 221 "parser.y" /* glr.c:816  */
+#line 218 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1344 "y.tab.c" /* glr.c:816  */
     break;
 
   case 96:
-#line 222 "parser.y" /* glr.c:816  */
+#line 219 "parser.y" /* glr.c:816  */
     { strcpy(type, (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str)); }
 #line 1350 "y.tab.c" /* glr.c:816  */
     break;
 
   case 100:
-#line 235 "parser.y" /* glr.c:816  */
+#line 232 "parser.y" /* glr.c:816  */
     { symbolInsert((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.str), type); }
 #line 1356 "y.tab.c" /* glr.c:816  */
     break;
@@ -3038,7 +3038,7 @@ yypdumpstack (yyGLRStack* yystackp)
 
 
 
-#line 346 "parser.y" /* glr.c:2584  */
+#line 343 "parser.y" /* glr.c:2584  */
 
 
 extern char *yytext;

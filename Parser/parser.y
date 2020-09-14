@@ -17,8 +17,6 @@ char temp[100];
 %left  '&'
 
 %union {
-        long int4;              /* Constant integer value */
-        float fp;               /* Constant floating point value */
         char *str;              /* Ptr to constant string (strings are malloc'd) */
     };
 
@@ -32,7 +30,6 @@ char temp[100];
 %token IF ELSE WHILE CONTINUE BREAK RETURN
 %token EndOfFile
 
-// %start start_state
 %nonassoc UNARY
 %glr-parser
 
