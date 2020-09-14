@@ -20,7 +20,7 @@ char temp[100];
         char *str;              /* Ptr to constant string (strings are malloc'd) */
     };
 
-%type <str> IDENTIFIER VOID CHAR SHORT INT LONG SIGNED UNSIGNED STRING_CONSTANT CHAR_CONSTANT INT_CONSTANT FLOAT_CONSTANT
+%type <str> IDENTIFIER VOID CHAR SHORT INT FLOAT DOUBLE LONG SIGNED UNSIGNED STRING_CONSTANT CHAR_CONSTANT INT_CONSTANT FLOAT_CONSTANT
 %token IDENTIFIER STRING_CONSTANT CHAR_CONSTANT INT_CONSTANT FLOAT_CONSTANT SIZEOF
 %token INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
@@ -48,145 +48,8 @@ global_declaration
 	;
 
 function_definition
-	: declaration_specifiers declarator compound_statement 
-	| declarator compound_statement
-	;
-
-fundamental_exp
-	: IDENTIFIER
-	| STRING_CONSTANT		{ constantInsert($1, "string"); }
-	| CHAR_CONSTANT     { constantInsert($1, "char"); }
-	| FLOAT_CONSTANT	  { constantInsert($1, "float"); }
-	| INT_CONSTANT			{ constantInsert($1, "int"); }
-	| '(' expression ')'
-	;
-
-
-secondary_exp
-	: fundamental_exp
-	| secondary_exp '[' expression ']'
-	| secondary_exp '(' ')'
-	| secondary_exp '(' arg_list ')'
-	| secondary_exp '.' IDENTIFIER
-	| secondary_exp INC_OP
-	| secondary_exp DEC_OP
-	;
-
-arg_list
-	: assignment_expression
-	| arg_list ',' assignment_expression
-	;
-
-unary_expression
-	: secondary_exp
-	| INC_OP unary_expression
-	| DEC_OP unary_expression
-	| unary_operator typecast_exp
-	;
-
-unary_operator
-	: '&'
-	| '*'
-	| '+'
-	| '-'
-	| '~'
-	| '!'
-	;
-
-typecast_exp
-	: unary_expression
-	| '(' type_name ')' typecast_exp
-	;
-
-multdivmod_exp
-	: typecast_exp
-	| multdivmod_exp '*' typecast_exp
-	| multdivmod_exp '/' typecast_exp
-	| multdivmod_exp '%' typecast_exp
-	;
-
-addsub_exp
-	: multdivmod_exp
-	| addsub_exp '+' multdivmod_exp
-	| addsub_exp '-' multdivmod_exp
-	;
-
-shift_exp
-	: addsub_exp
-	| shift_exp LEFT_OP addsub_exp
-	| shift_exp RIGHT_OP addsub_exp
-	;
-
-relational_expression
-	: shift_exp
-	| relational_expression '<' shift_exp
-	| relational_expression '>' shift_exp
-	| relational_expression LE_OP shift_exp
-	| relational_expression GE_OP shift_exp
-	;
-
-equality_expression
-	: relational_expression
-	| equality_expression EQ_OP relational_expression
-	| equality_expression NE_OP relational_expression
-	;
-
-and_expression
-	: equality_expression
-	| and_expression '&' equality_expression
-	;
-
-exor_expression
-	: and_expression
-	| exor_expression '^' and_expression
-	;
-
-unary_or_expression
-	: exor_expression
-	| unary_or_expression '|' exor_expression
-	;
-
-logical_and_expression
-	: unary_or_expression
-	| logical_and_expression AND_OP unary_or_expression
-	;
-
-logical_or_expression
-	: logical_and_expression
-	| logical_or_expression OR_OP logical_and_expression
-	;
-
-conditional_expression
-	: logical_or_expression
-	| logical_or_expression '?' expression ':' conditional_expression
-	;
-
-assignment_expression
-	: conditional_expression
-	| unary_expression assignment_operator assignment_expression
-	;
-
-assignment_operator
-	: '='
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
-	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
-	;
-
-expression
-	: assignment_expression
-	| expression ',' assignment_expression
-	;
-
-constant_expression
-	: conditional_expression
+	: declaration_specifiers direct_declarator compound_statement 
+	| direct_declarator compound_statement
 	;
 
 declaration
@@ -205,79 +68,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator
-	| declarator '=' init
-	;
-
-type_specifier
-	: VOID			{ strcpy(type, $1); }
-	| CHAR			{ strcpy(type, $1); }
-	| SHORT			{ strcpy(type, $1); }
-	| INT			{ strcpy(type, $1); }
-	| LONG			{ strcpy(type, $1); }
-	| SIGNED		{ strcpy(type, $1); }
-	| UNSIGNED	    { strcpy(type, $1); }
-	;
-
-type_specifier_list
-	: type_specifier type_specifier_list    
-	| type_specifier    
-	;
-
-declarator
 	: direct_declarator
-	;
-
-direct_declarator
-	: IDENTIFIER			{ symbolInsert($1, type); }
-	| '(' declarator ')'
-	| direct_declarator '[' constant_expression ']'
-	| direct_declarator '[' ']'
-	| direct_declarator '(' parameter_type_list ')'
-	| direct_declarator '(' identifier_list ')'
-	| direct_declarator '(' ')'
-	;
-
-
-parameter_type_list
-	: parameter_list
-	;
-
-parameter_list
-	: parameter_declaration
-	| parameter_list ',' parameter_declaration
-	;
-
-parameter_declaration
-	: declaration_specifiers declarator 
-	| declaration_specifiers abstract_declarator   
-	| declaration_specifiers 
-	;
-
-identifier_list
-	: IDENTIFIER
-	| identifier_list ',' IDENTIFIER
-	;
-
-type_name
-	: type_specifier_list
-	| type_specifier_list abstract_declarator
-	;
-
-abstract_declarator
-	: direct_abstract_declarator
-	;
-
-direct_abstract_declarator
-	: '(' abstract_declarator ')'
-	| '[' ']'
-	| '[' constant_expression ']'
-	| direct_abstract_declarator '[' ']'
-	| direct_abstract_declarator '[' constant_expression ']'
-	| '(' ')'
-	| '(' parameter_type_list ')'
-	| direct_abstract_declarator '(' ')'
-	| direct_abstract_declarator '(' parameter_type_list ')'
+	| direct_declarator '=' init
 	;
 
 init
@@ -291,12 +83,14 @@ init_list
 	| init_list ',' init
 	;
 
-statement
-	: compound_statement
-	| expression_statement
-	| selection_statement
-	| iteration_statement
-	| jump_statement
+direct_declarator
+	: IDENTIFIER			{ symbolInsert($1, type); }
+	| '(' direct_declarator ')'
+	| direct_declarator '[' constant_expression ']'
+	| direct_declarator '[' ']'
+	| direct_declarator '(' parameter_list ')'
+	| direct_declarator '(' identifier_list ')'
+	| direct_declarator '(' ')'
 	;
 
 compound_statement
@@ -319,6 +113,14 @@ statement_list
 	| statement_list statement
 	;
 
+statement
+	: compound_statement
+	| expression_statement
+	| selection_statement
+	| iteration_statement
+	| jump_statement
+	;
+
 expression_statement
 	: ';'
 	| expression ';'
@@ -338,6 +140,190 @@ jump_statement
 	| BREAK ';'
 	| RETURN ';'
 	| RETURN expression ';'
+	;
+
+expression
+	: assignment_expression
+	| expression ',' assignment_expression
+	;
+
+assignment_expression
+	: conditional_expression
+	| unary_expression assignment_operator assignment_expression
+	;
+
+unary_expression
+	: secondary_exp
+	| INC_OP unary_expression
+	| DEC_OP unary_expression
+	| unary_operator typecast_exp
+	;
+
+secondary_exp
+	: fundamental_exp
+	| secondary_exp '[' expression ']'
+	| secondary_exp '(' ')'
+	| secondary_exp '(' arg_list ')'
+	| secondary_exp '.' IDENTIFIER
+	| secondary_exp INC_OP
+	| secondary_exp DEC_OP
+	;
+
+arg_list
+	: assignment_expression
+	| arg_list ',' assignment_expression
+	;
+
+fundamental_exp
+	: IDENTIFIER
+	| STRING_CONSTANT		{ constantInsert($1, "string"); }
+	| CHAR_CONSTANT     { constantInsert($1, "char"); }
+	| FLOAT_CONSTANT	  { constantInsert($1, "float"); }
+	| INT_CONSTANT			{ constantInsert($1, "int"); }
+	| '(' expression ')'
+	;
+
+conditional_expression
+	: logical_or_expression
+	| logical_or_expression '?' expression ':' conditional_expression
+	;
+
+logical_or_expression
+	: logical_and_expression
+	| logical_or_expression OR_OP logical_and_expression
+	;
+
+logical_and_expression
+	: unary_or_expression
+	| logical_and_expression AND_OP unary_or_expression
+	;
+
+unary_or_expression
+	: exor_expression
+	| unary_or_expression '|' exor_expression
+	;
+
+exor_expression
+	: and_expression
+	| exor_expression '^' and_expression
+	;
+
+and_expression
+	: equality_expression
+	| and_expression '&' equality_expression
+	;
+
+equality_expression
+	: relational_expression
+	| equality_expression EQ_OP relational_expression
+	| equality_expression NE_OP relational_expression
+	;
+
+relational_expression
+	: shift_exp
+	| relational_expression '<' shift_exp
+	| relational_expression '>' shift_exp
+	| relational_expression LE_OP shift_exp
+	| relational_expression GE_OP shift_exp
+	;
+
+shift_exp
+	: addsub_exp
+	| shift_exp LEFT_OP addsub_exp
+	| shift_exp RIGHT_OP addsub_exp
+	;
+
+addsub_exp
+	: multdivmod_exp
+	| addsub_exp '+' multdivmod_exp
+	| addsub_exp '-' multdivmod_exp
+	;
+
+multdivmod_exp
+	: typecast_exp
+	| multdivmod_exp '*' typecast_exp
+	| multdivmod_exp '/' typecast_exp
+	| multdivmod_exp '%' typecast_exp
+	;
+
+typecast_exp
+	: unary_expression
+	| '(' type_name ')' typecast_exp
+	;
+
+type_name
+	: type_specifier_list
+	| type_specifier_list direct_abstract_declarator
+	;
+
+type_specifier_list
+	: type_specifier type_specifier_list    
+	| type_specifier    
+	;
+
+type_specifier
+	: VOID			{ strcpy(type, $1); }
+	| CHAR			{ strcpy(type, $1); }
+	| SHORT			{ strcpy(type, $1); }
+	| INT			{ strcpy(type, $1); }
+	| LONG			{ strcpy(type, $1); }
+	| SIGNED		{ strcpy(type, $1); }
+	| UNSIGNED	    { strcpy(type, $1); }
+	;
+
+direct_abstract_declarator
+	: '(' direct_abstract_declarator ')'
+	| '[' ']'
+	| '[' constant_expression ']'
+	| direct_abstract_declarator '[' ']'
+	| direct_abstract_declarator '[' constant_expression ']'
+	| '(' ')'
+	| '(' parameter_list ')'
+	| direct_abstract_declarator '(' ')'
+	| direct_abstract_declarator '(' parameter_list ')'
+	;
+
+unary_operator
+	: '&'
+	| '*'
+	| '+'
+	| '-'
+	| '~'
+	| '!'
+	;
+
+assignment_operator
+	: '='
+	| MUL_ASSIGN
+	| DIV_ASSIGN
+	| MOD_ASSIGN
+	| ADD_ASSIGN
+	| SUB_ASSIGN
+	| LEFT_ASSIGN
+	| RIGHT_ASSIGN
+	| AND_ASSIGN
+	| XOR_ASSIGN
+	| OR_ASSIGN
+	;
+
+constant_expression
+	: conditional_expression
+	;
+
+parameter_list
+	: parameter_declaration
+	| parameter_list ',' parameter_declaration
+	;
+
+parameter_declaration
+	: declaration_specifiers direct_declarator 
+	| declaration_specifiers direct_abstract_declarator   
+	| declaration_specifiers 
+	;
+
+identifier_list
+	: IDENTIFIER
+	| identifier_list ',' IDENTIFIER
 	;
 
 %%
