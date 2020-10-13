@@ -1,0 +1,22 @@
+niranjan@niranjan-G3-3579:~/Compiler-Design/Parser$ ./run.sh
+Parsing successful
+
+      Symbol Table         
+----------------------------
+Token		Datatype
+----------------------------
+main		 int 		
+a		 int 		
+b		 int 		
+----------------------------
+
+
+      Constant Table      
+----------------------------
+Constant	Datatype
+----------------------------
+5		 int		
+0		 int		
+"%d"		 string		
+4		 int		
+----------------------------

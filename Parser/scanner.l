@@ -1,10 +1,10 @@
 %{
-int yylineno;
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "y.tab.h"
-extern YYSTYPE yylval;
+	int yylineno;
+	#include <stdio.h>
+	#include <string.h>
+	#include <stdlib.h>
+	#include "y.tab.h"
+	extern YYSTYPE yylval;
 %}
 
 alpha 		[A-Za-z_]

@@ -3,7 +3,8 @@
 #define x 30
 
 int main(void) {
-    int m = n = x;
+    int m, n;
+    m = n = x;
     n = n*10;
     while(m < n) {
         printf("%d", m);

@@ -73,25 +73,23 @@ extern int yydebug;
     AND_ASSIGN = 283,
     XOR_ASSIGN = 284,
     OR_ASSIGN = 285,
-    TYPE_NAME = 286,
-    DEF = 287,
-    CHAR = 288,
-    SHORT = 289,
-    INT = 290,
-    LONG = 291,
-    SIGNED = 292,
-    UNSIGNED = 293,
-    FLOAT = 294,
-    DOUBLE = 295,
-    CONST = 296,
-    VOID = 297,
-    IF = 298,
-    WHILE = 299,
-    CONTINUE = 300,
-    BREAK = 301,
-    RETURN = 302,
-    EndOfFile = 303,
-    UNARY = 304
+    CHAR = 286,
+    SHORT = 287,
+    INT = 288,
+    LONG = 289,
+    SIGNED = 290,
+    UNSIGNED = 291,
+    FLOAT = 292,
+    DOUBLE = 293,
+    CONST = 294,
+    VOID = 295,
+    IF = 296,
+    WHILE = 297,
+    CONTINUE = 298,
+    BREAK = 299,
+    RETURN = 300,
+    EndOfFile = 301,
+    UNARY = 302
   };
 #endif
 
@@ -105,7 +103,7 @@ union YYSTYPE
         char *str;              /* Ptr to constant string (strings are malloc'd) */
     
 
-#line 109 "y.tab.h" /* glr.c:197  */
+#line 107 "y.tab.h" /* glr.c:197  */
 };
 
 typedef union YYSTYPE YYSTYPE;

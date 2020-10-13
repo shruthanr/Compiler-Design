@@ -545,12 +545,12 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "scanner.l"
 #line 2 "scanner.l"
-int yylineno;
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "y.tab.h"
-extern YYSTYPE yylval;
+	int yylineno;
+	#include <stdio.h>
+	#include <string.h>
+	#include <stdlib.h>
+	#include "y.tab.h"
+	extern YYSTYPE yylval;
 #line 555 "lex.yy.c"
 #line 556 "lex.yy.c"
 
