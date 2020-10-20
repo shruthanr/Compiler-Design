@@ -2,10 +2,11 @@
 
 int arr2[10];
 
-void func(int b, int c)
+int func(int b, int c)
 {
 	int a;
 	int arr1[10];
+	return 1;
 }
 
 int main()
