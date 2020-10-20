@@ -23,6 +23,6 @@ int main()
 			int c;
 			int arr3[10];
 		}
-		++z;
+		z = z + 1;
 	}
 }

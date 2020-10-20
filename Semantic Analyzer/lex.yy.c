@@ -370,10 +370,10 @@ static const flex_int16_t yy_accept[108] =
         0,    0,    0,   26,   25,   23,   23,   11,   23,   23,
        23,   23,   23,   23,   23,    0,   27,   17,   23,   23,
        23,   23,   23,   23,   13,   23,    0,   12,    0,   23,
-       23,   23,   23,   20,    0,    0,   22,   21,    0,   23,
+       23,   23,   23,   19,    0,    0,   21,   20,    0,   23,
         0,    0,    0,   23,    0,   15,    0,   23,    0,   16,
 
-        0,    0,    0,   19,    0,   14,    0
+        0,    0,    0,   22,    0,   14,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -834,113 +834,113 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 15 "sem.l"
+#line 16 "sem.l"
 {block_start(); return '{';}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 16 "sem.l"
+#line 17 "sem.l"
 {block_end(); return '}';}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 17 "sem.l"
-{yylval.ival = INT; return INT;}
+#line 19 "sem.l"
+{yylval.ival = INT;                                     return INT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 18 "sem.l"
-{yylval.ival = FLOAT; return FLOAT;}
+#line 20 "sem.l"
+{yylval.ival = FLOAT;                                   return FLOAT;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 19 "sem.l"
+#line 21 "sem.l"
 {yylval.ival = VOID; return VOID;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 20 "sem.l"
-{yylval.ival = UNSIGNED_INT; return UNSIGNED_INT;}
+#line 22 "sem.l"
+{yylval.ival = UNSIGNED_INT;                     return UNSIGNED_INT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 21 "sem.l"
-{yylval.ival = L_INT; return L_INT;}
+#line 23 "sem.l"
+{yylval.ival = L_INT;                                return L_INT;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 22 "sem.l"
-{yylval.ival = S_INT; return S_INT;}
+#line 24 "sem.l"
+{yylval.ival = S_INT;                               return S_INT;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 23 "sem.l"
+#line 25 "sem.l"
 {return ELSE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 24 "sem.l"
+#line 26 "sem.l"
 return IF;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 25 "sem.l"
-return PREPROC;
+#line 27 "sem.l"
+return WHILE;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 26 "sem.l"
-return WHILE;
+#line 28 "sem.l"
+return RETURN;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 27 "sem.l"
-return RETURN;
+#line 29 "sem.l"
+return PRINT;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 28 "sem.l"
-return PRINT;
+#line 31 "sem.l"
+return PREPROC;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 29 "sem.l"
-{yylval.str=strdup(yytext); return ID;}
+#line 33 "sem.l"
+{yylval.str=strdup(yytext);           return ID;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 30 "sem.l"
-{yylval.str=strdup(yytext);return INT_CONST;}
+#line 34 "sem.l"
+{yylval.str=strdup(yytext);                         return INT_CONST;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 31 "sem.l"
-{yylval.str=strdup(yytext); return FLOAT_CONST;}
+#line 35 "sem.l"
+{yylval.str=strdup(yytext);                 return FLOAT_CONST;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 33 "sem.l"
+#line 37 "sem.l"
 ;
 	YY_BREAK
 case 27:
 /* rule 27 can match eol */
 YY_RULE_SETUP
-#line 34 "sem.l"
+#line 38 "sem.l"
 ;
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 35 "sem.l"
+#line 40 "sem.l"
 return STRING;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 36 "sem.l"
+#line 41 "sem.l"
 return yytext[0];
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 37 "sem.l"
+#line 42 "sem.l"
 ECHO;
 	YY_BREAK
 #line 947 "lex.yy.c"
@@ -1951,5 +1951,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 37 "sem.l"
+#line 42 "sem.l"
 

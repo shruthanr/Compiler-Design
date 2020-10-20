@@ -576,10 +576,10 @@ exp : ID {
 	| '(' exp '/' exp ')'
 	| consttype
 	| '(' exp ')'
-	| '++' exp
-	| '--' exp
-	| exp '++'
-	| exp '--'
+	| INCR exp
+	| DECR exp
+	| exp INCR
+	| exp DECR
 	;
 
 consttype : INT_CONST { temp = 258;}
