@@ -240,7 +240,9 @@
 	void print()
 	{
 		int i,j;
-		printf("\nSymbol Table\n\n");
+		printf("\n------------------------------------------------------------------------------------------");
+		printf("\n\t\t\t\t\tSYMBOL TABLE\n");
+		printf("------------------------------------------------------------------------------------------");
 		printf("\nAddress\tToken\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for (i=0;i<n;i++)
 		{
@@ -673,7 +675,7 @@ int main(int argc, char *argv[])
 	yyin =fopen(argv[1],"r");
 	if (!yyparse())
 	{
-		printf("Parsing done\n");
+		printf("PARSING DONE\n");
 		print();
 	}
 	else
