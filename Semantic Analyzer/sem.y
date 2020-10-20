@@ -238,13 +238,19 @@
 	{
 		int i,j;
 		printf("\nSymbol Table\n\n");
-		printf("\nSNo.\tToken\tAddress\tValue\tScope\tIsArray\tType\tReturn Type\tParams\n");
+		printf("\nSNo.\tToken\tAddress\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tParams\n");
 		for(i=0;i<n;i++)
 		{
 			if(st[i].type[0]==258 || st[i].type[0]==261|| st[i].type[0]==262|| st[i].type[0]==263)
-				printf("%d\t%s\t%d\t%d\t%d\t%d",st[i].sno,st[i].token,st[i].addr,(int)st[i].fvalue,st[i].scope, st[i].arrFlag);
+				printf("%d\t%s\t%d\t%d\t%d\t%d\t-\t",st[i].sno,st[i].token,st[i].addr,(int)st[i].fvalue,st[i].scope, st[i].arrFlag);
 			else
-				printf("%d\t%s\t%d\t%.1f\t%d\t%d",st[i].sno,st[i].token,st[i].addr,st[i].fvalue,st[i].scope, st[i].arrFlag);
+			{
+				if(st[i].arrFlag)
+					printf("%d\t%s\t%d\t-\t%d\t%d\t%d\t",st[i].sno,st[i].token,st[i].addr,st[i].scope, st[i].arrFlag, (int)st[i].fvalue);
+				else
+					printf("%d\t%s\t%d\t%.1f\t%d\t%d\t-\t",st[i].sno,st[i].token,st[i].addr,st[i].fvalue,st[i].scope, st[i].arrFlag);
+			}
+				
 			for(j=0;j<st[i].tn;j++)
 			{
 				if(st[i].type[j]==258)
@@ -549,7 +555,7 @@ exp : ID {
 		if(isArray($1) && (atoi($3) >= bound || atoi($3) < 0) )
 			printf("\nError: Array subscript out of bounds : Line %d\n", printline());
 
-		}
+	}
 	| exp '+' exp
 	| exp '-' exp
 	| exp '*' exp
