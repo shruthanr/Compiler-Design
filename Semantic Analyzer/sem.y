@@ -303,7 +303,8 @@
 
 %token<ival> INT FLOAT VOID UNSIGNED_INT S_INT L_INT
 %token<str> ID INT_CONST FLOAT_CONST
-%token WHILE IF RETURN PREPROC LE STRING PRINT FUNCTION ARRAY ELSE
+%token WHILE IF RETURN PREPROC LE LT GE GT STRING PRINT FUNCTION ARRAY ELSE
+%token INCR DECR
 %right '='
 
 %type<str> secondary_assignment consttype assignment_exp
@@ -440,6 +441,9 @@ while_stmt
 
 expr1
 	: expr1 LE expr1
+	| expr1 LT expr1
+	| expr1 GE expr1
+	| expr1 GT expr1
 	| secondary_assignment
 	;
 
@@ -572,6 +576,10 @@ exp : ID {
 	| '(' exp '/' exp ')'
 	| consttype
 	| '(' exp ')'
+	| '++' exp
+	| '--' exp
+	| exp '++'
+	| exp '--'
 	;
 
 consttype : INT_CONST { temp = 258;}
