@@ -92,7 +92,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 306 "sem.y" /* yacc.c:1909  */
+#line 308 "sem.y" /* yacc.c:1909  */
 
 		int ival;
 		char *str;

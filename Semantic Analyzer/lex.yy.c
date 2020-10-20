@@ -507,10 +507,7 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "sem.l"
-#line 2 "sem.l"
-    #include "y.tab.h"
-#line 513 "lex.yy.c"
-#line 514 "lex.yy.c"
+#line 511 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -730,9 +727,9 @@ YY_DECL
 		}
 
 	{
-#line 9 "sem.l"
+#line 5 "sem.l"
 
-#line 736 "lex.yy.c"
+#line 733 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -792,132 +789,132 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 10 "sem.l"
+#line 6 "sem.l"
 ;
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 11 "sem.l"
+#line 7 "sem.l"
 {yylineno++;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 12 "sem.l"
+#line 8 "sem.l"
 {block_start(); return '{';}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 13 "sem.l"
+#line 9 "sem.l"
 {block_end(); return '}';}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 14 "sem.l"
+#line 10 "sem.l"
 {yylval.ival = INT; return INT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 15 "sem.l"
+#line 11 "sem.l"
 {yylval.ival = FLOAT; return FLOAT;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 16 "sem.l"
+#line 12 "sem.l"
 {yylval.ival = VOID; return VOID;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 17 "sem.l"
+#line 13 "sem.l"
 {yylval.ival = UNSIGNED_INT; return UNSIGNED_INT;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 18 "sem.l"
+#line 14 "sem.l"
 {yylval.ival = L_INT; return L_INT;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 19 "sem.l"
+#line 15 "sem.l"
 {yylval.ival = S_INT; return S_INT;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 20 "sem.l"
+#line 16 "sem.l"
 {return ELSE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 21 "sem.l"
+#line 17 "sem.l"
 return IF;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 22 "sem.l"
+#line 18 "sem.l"
 return PREPROC;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 23 "sem.l"
+#line 19 "sem.l"
 return WHILE;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 24 "sem.l"
+#line 20 "sem.l"
 return RETURN;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 25 "sem.l"
+#line 21 "sem.l"
 return PRINT;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 26 "sem.l"
+#line 22 "sem.l"
 {yylval.str=strdup(yytext); return ID;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 27 "sem.l"
+#line 23 "sem.l"
 {yylval.str=strdup(yytext);return INT_CONST;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 28 "sem.l"
+#line 24 "sem.l"
 {yylval.str=strdup(yytext); return FLOAT_CONST;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 29 "sem.l"
+#line 25 "sem.l"
 return LE;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 30 "sem.l"
+#line 26 "sem.l"
 ;
 	YY_BREAK
 case 22:
 /* rule 22 can match eol */
 YY_RULE_SETUP
-#line 31 "sem.l"
+#line 27 "sem.l"
 ;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 32 "sem.l"
+#line 28 "sem.l"
 return STRING;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 33 "sem.l"
+#line 29 "sem.l"
 return yytext[0];
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 34 "sem.l"
+#line 30 "sem.l"
 ECHO;
 	YY_BREAK
-#line 921 "lex.yy.c"
+#line 918 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1925,6 +1922,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 34 "sem.l"
+#line 30 "sem.l"
 
 

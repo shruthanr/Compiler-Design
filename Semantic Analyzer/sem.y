@@ -238,17 +238,19 @@
 	{
 		int i,j;
 		printf("\nSymbol Table\n\n");
-		printf("\nSNo.\tToken\tAddress\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tParams\n");
+		printf("\nAddress\tToken\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tParams\n");
 		for(i=0;i<n;i++)
 		{
 			if(st[i].type[0]==258 || st[i].type[0]==261|| st[i].type[0]==262|| st[i].type[0]==263)
-				printf("%d\t%s\t%d\t%d\t%d\t%d\t-\t",st[i].sno,st[i].token,st[i].addr,(int)st[i].fvalue,st[i].scope, st[i].arrFlag);
+				printf("%d\t%s\t%d\t%d\tFalse\t-\t",st[i].addr,st[i].token,(int)st[i].fvalue,st[i].scope);
 			else
 			{
 				if(st[i].arrFlag)
-					printf("%d\t%s\t%d\t-\t%d\t%d\t%d\t",st[i].sno,st[i].token,st[i].addr,st[i].scope, st[i].arrFlag, (int)st[i].fvalue);
+					printf("%d\t%s\t-\t%d\tTrue\t%d\t",st[i].addr,st[i].token,st[i].scope, (int)st[i].fvalue);
+				else if(st[i].type[0]==274)
+					printf("%d\t%s\t-\t%d\tFalse\t-\t",st[i].addr,st[i].token,st[i].scope);
 				else
-					printf("%d\t%s\t%d\t%.1f\t%d\t%d\t-\t",st[i].sno,st[i].token,st[i].addr,st[i].fvalue,st[i].scope, st[i].arrFlag);
+					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",st[i].addr,st[i].token,st[i].fvalue,st[i].scope);
 			}
 				
 			for(j=0;j<st[i].tn;j++)
