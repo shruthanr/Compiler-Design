@@ -25,6 +25,7 @@ digit [0-9]
 "else"	{return ELSE;}
 "if"	return IF;
 "while"	                                                        return WHILE;
+"for"                                                           return FOR;
 "return" 	                                                    return RETURN;
 "printf"	                                                    return PRINT;
 
