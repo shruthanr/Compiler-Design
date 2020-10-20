@@ -2,20 +2,18 @@
 
 int arr2[10];
 
-int trial(int b, int c, int d)
+void func(int b, int c)
 {
 	int a;
 	int arr1[10];
-
-	return 1;
 }
 
 int main()
 {
 	int a;
 	int k=5;
-	int arr[10];
-	long int z;
+	int arr[5];
+	long int z = 6;
 	while(1)
 	{
 		int b=5;
@@ -25,5 +23,4 @@ int main()
 			int arr3[10];
 		}
 	}
-	arr = 10;
 }
