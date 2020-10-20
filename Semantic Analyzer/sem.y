@@ -264,8 +264,8 @@
 					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
 			
-			if (Symbol_Table[i].funcFlag == 1)
-				printf("\tFUNCTION");
+			// if (Symbol_Table[i].funcFlag == 1)
+			// 	printf("\tFUNCTION");
 
 			for (j=0;j<Symbol_Table[i].tn;j++)
 			{
@@ -317,7 +317,13 @@
 %token WHILE FOR IF RETURN PREPROC STRING PRINT FUNCTION ARRAY ELSE
 %token INCR DECR
 %token EQUAL LE LT GE GT
-%right '='
+
+%left '='
+%left '+' '-'
+%left '*' '/'
+%left INCR DECR
+%left LE LT GE GT EQUAL
+%left IF ELSE
 
 %type<str> secondary_assignment consttype assignment_exp
 %type<ival> Type
@@ -461,6 +467,7 @@ expr1
 	| expr1 LT expr1
 	| expr1 GE expr1
 	| expr1 GT expr1
+	| expr1 EQUAL expr1
 	| secondary_assignment
 	;
 
