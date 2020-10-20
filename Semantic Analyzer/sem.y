@@ -314,8 +314,9 @@
 
 %token<ival> INT FLOAT VOID UNSIGNED_INT S_INT L_INT
 %token<str> ID INT_CONST FLOAT_CONST
-%token WHILE FOR IF RETURN PREPROC LE LT GE GT STRING PRINT FUNCTION ARRAY ELSE
+%token WHILE FOR IF RETURN PREPROC STRING PRINT FUNCTION ARRAY ELSE
 %token INCR DECR
+%token EQUAL LE LT GE GT
 %right '='
 
 %type<str> secondary_assignment consttype assignment_exp

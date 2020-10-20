@@ -9,6 +9,7 @@ digit [0-9]
 ">"                                                             return GT;
 "++"                                                            return INCR;
 "--"                                                            return DECR;
+"=="                                                            return EQUAL;
 
 [ \t]                                                                      ;
 \n	{yylineno++;}
