@@ -5,9 +5,11 @@
 void func(int a)
 {
     int b = 10;
+    return;
 }
 
 int main()
 {
     func();
+    return 0;
 }

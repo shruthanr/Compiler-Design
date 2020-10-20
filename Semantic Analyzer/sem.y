@@ -318,7 +318,7 @@
 %token INCR DECR
 %token EQUAL LE LT GE GT
 
-%left '='
+%left '=' ','
 %left '+' '-'
 %left '*' '/'
 %left INCR DECR
@@ -475,7 +475,6 @@ secondary_assignment : ID '=' secondary_assignment
 	{
 	  c=0;
 		int scope_curr=returnScope($1,scope_stack[index1-1]);
-		//printf("Scope: %d",scope_curr);
 		int type=returntype($1,scope_curr);
 		if ((!(strspn($3,"0123456789")==strlen($3))) && type==258)
 			printf("\nError : Type Mismatch : Line %d\n",printline());
@@ -547,9 +546,7 @@ exp : ID {
 	if (!lookup($1))
 	{
 		int curr_scope=scope_stack[index1-1];
-		//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
 		int scope=returnScope($1,curr_scope);
-		//printf("Curr scope: %d %d\n", curr_scope,scope);
 		if (!(scope<=curr_scope && end[scope]==0))
 			printf("\nError : Variable %s out of scope : Line %d\n",$1,printline());
 	}
@@ -572,9 +569,7 @@ exp : ID {
 		if (!lookup($1))
 		{
 			int curr_scope=scope_stack[index1-1];
-			//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
 			int scope=returnScope($1,curr_scope);
-			//printf("Curr scope: %d %d\n", curr_scope,scope);
 			if (!(scope<=curr_scope && end[scope]==0))
 				printf("\nError : Variable %s out of scope : Line %d\n",$1,printline());
 		}
@@ -663,9 +658,7 @@ Declaration
 				if (!lookup($1))
 				{
 					int curr_scope=scope_stack[index1-1];
-					//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
 					int scope=returnScope($1,curr_scope);
-					//printf("Curr scope: %d %d\n", curr_scope,scope);
 					if (!(scope<=curr_scope && end[scope]==0))
 						printf("\nError : Variable %s out of scope : Line %d\n",$1,printline());
 				}
@@ -723,14 +716,12 @@ void block_start()
 	scope_stack[index1]=scope_incrementer;
 	scope_incrementer++;
 	index1++;
-	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
 	return;
 }
 
 void block_end()
 {
 	index1--;
-	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
 	end[scope_stack[index1]]=1;
 	scope_stack[index1]=0;
 	return;
