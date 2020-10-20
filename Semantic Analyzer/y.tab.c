@@ -92,7 +92,8 @@
 		int addr;
 		float fvalue;
 		int scope;
-		int return_typesFlag;
+		int arrFlag;
+		int funcFlag;
 		int fType[100]; 
 		int numParams; 
 	}Symbol_Table[100];
@@ -123,18 +124,18 @@
 		return return_types[ct-1];
 	}
 
-	int isreturn_typesay(char* a)
+	int isArray(char* a)
 	{
 		int i;
 		for (i=0;i<=n;i++)
 		{
 			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				if (Symbol_Table[i].return_typesFlag==1)
+				if (Symbol_Table[i].arrFlag==1)
 					return Symbol_Table[i].fvalue;
 						else
 							return 0;
-			 }
+			}
 		}
 		return 0;
 	}
@@ -230,21 +231,25 @@
 		}
 	}
 
-	void insert(char *name, int type, int addr, int return_typesFlag)
+	void insert(char *name, int type, int addr, int arrFlag, int funcStatus)
 	{
 		int i;
 		if (lookup(name))
 		{
 			strcpy(Symbol_Table[n].token,name);
+			if (funcStatus == 1)
+				Symbol_Table[n].funcFlag=1;
 			Symbol_Table[n].tn=1;
 			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
 			Symbol_Table[n].addr=addr;
 			Symbol_Table[n].sno=n+1;
-			Symbol_Table[n].return_typesFlag = return_typesFlag;
+			Symbol_Table[n].arrFlag = arrFlag;
 			n++;
 		}
 		else
 		{
+			if (funcStatus == 1)
+				Symbol_Table[n].funcFlag=1;
 			for (i=0;i<n;i++)
 			{
 				if (!strcmp(name,Symbol_Table[i].token))
@@ -258,7 +263,7 @@
 
 		return;
 	}
-	void insertFunc(char *name, int type, int addr, int return_typesFlag, int params[100], int numParams)
+	void insertFunc(char *name, int type, int addr, int arrFlag, int params[100], int numParams)
 	{
 		int i;
 		if (lookup(name))
@@ -268,7 +273,8 @@
 			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
 			Symbol_Table[n].addr=addr;
 			Symbol_Table[n].sno=n+1;
-			Symbol_Table[n].return_typesFlag = return_typesFlag;
+			Symbol_Table[n].arrFlag = arrFlag;
+			Symbol_Table[n].funcFlag = 1;
 			for (int j=0; j<numParams; j++)
 				Symbol_Table[n].fType[j] = params[j];
 			Symbol_Table[n].numParams = numParams;
@@ -289,7 +295,7 @@
 
 		return;
 	}
-	void insert_dup(char *name, int type, int addr,int s_c, int return_typesFlag)
+	void insert_dup(char *name, int type, int addr,int s_c, int arrFlag)
 	{
 		strcpy(Symbol_Table[n].token,name);
 		Symbol_Table[n].tn=1;
@@ -297,7 +303,7 @@
 		Symbol_Table[n].addr=addr;
 		Symbol_Table[n].sno=n+1;
 		Symbol_Table[n].scope=s_c;
-		Symbol_Table[n].return_typesFlag=return_typesFlag;
+		Symbol_Table[n].arrFlag=arrFlag;
 		n++;
 		return;
 	}
@@ -305,22 +311,27 @@
 	void print()
 	{
 		int i,j;
-		printf("\nSymbol Table\n\n");
-		printf("\nAddress\tToken\tValue\tScope\tIsreturn_typesay\treturn_typesayDim\tType\tReturn Type\tArguments\n");
+		printf("\n------------------------------------------------------------------------------------------");
+		printf("\n\t\t\t\t\tSYMBOL TABLE\n");
+		printf("------------------------------------------------------------------------------------------");
+		printf("\nAddress\tToken\tValue\tScope\tisArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for (i=0;i<n;i++)
 		{
-			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263)
+			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263|| Symbol_Table[i].type[0]==274)
 				printf("%d\t%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			else
 			{
-				if (Symbol_Table[i].return_typesFlag)
+				if (Symbol_Table[i].arrFlag)
 					printf("%d\t%s\t-\t%d\tTrue\t%d\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope, (int)Symbol_Table[i].fvalue);
 				else if (Symbol_Table[i].type[0]==274)
 					printf("%d\t%s\t-\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope);
 				else
 					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
-				
+			
+			if (Symbol_Table[i].funcFlag == 1)
+				printf("\tFUNCTION");
+
 			for (j=0;j<Symbol_Table[i].tn;j++)
 			{
 				if (Symbol_Table[i].type[j]==258)
@@ -330,7 +341,7 @@
 				else if (Symbol_Table[i].type[j]==274)
 					printf("\tFUNCTION");
 				else if (Symbol_Table[i].type[j]==269)
-					printf("\treturn_typesAY");
+					printf("\tARRAY");
 				else if (Symbol_Table[i].type[j]==260)
 					printf("\tVOID");
 				else if (Symbol_Table[i].type[j]==261)
@@ -350,7 +361,7 @@
 				else if (Symbol_Table[i].fType[j]==274)
 					printf("FUNCTION,");
 				else if (Symbol_Table[i].fType[j]==269)
-					printf("return_typesAY,");
+					printf("ARRAY,");
 				else if (Symbol_Table[i].fType[j]==260)
 					printf("VOID,");
 				else if (Symbol_Table[i].fType[j]==261)
@@ -365,7 +376,7 @@
 		return;
 	}
 
-#line 369 "y.tab.c" /* yacc.c:339  */
+#line 380 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -418,7 +429,7 @@ extern int yydebug;
     STRING = 276,
     PRINT = 277,
     FUNCTION = 278,
-    return_typesAY = 279,
+    ARRAY = 279,
     ELSE = 280,
     INCR = 281,
     DECR = 282
@@ -446,7 +457,7 @@ extern int yydebug;
 #define STRING 276
 #define PRINT 277
 #define FUNCTION 278
-#define return_typesAY 279
+#define ARRAY 279
 #define ELSE 280
 #define INCR 281
 #define DECR 282
@@ -456,13 +467,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 313 "sem.y" /* yacc.c:355  */
+#line 324 "sem.y" /* yacc.c:355  */
 
 		int ival;
 		char *str;
 	
 
-#line 466 "y.tab.c" /* yacc.c:355  */
+#line 477 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -479,7 +490,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 483 "y.tab.c" /* yacc.c:358  */
+#line 494 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -779,14 +790,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   320,   320,   321,   322,   323,   327,   343,   361,   362,
-     365,   366,   367,   368,   369,   370,   374,   378,   379,   380,
-     384,   385,   386,   387,   388,   389,   395,   396,   397,   398,
-     399,   402,   419,   429,   430,   431,   432,   436,   437,   441,
-     445,   448,   449,   450,   451,   452,   455,   475,   483,   484,
-     485,   493,   494,   497,   512,   540,   574,   575,   576,   577,
-     578,   579,   580,   581,   582,   583,   584,   585,   586,   587,
-     590,   591,   595,   622,   643,   657,   669
+       0,   331,   331,   332,   333,   334,   338,   354,   372,   373,
+     376,   377,   378,   379,   380,   381,   385,   389,   390,   391,
+     395,   396,   397,   398,   399,   400,   406,   407,   408,   409,
+     410,   413,   430,   440,   441,   442,   443,   447,   448,   452,
+     456,   459,   460,   461,   462,   463,   466,   486,   494,   495,
+     496,   504,   505,   508,   523,   551,   585,   586,   587,   588,
+     589,   590,   591,   592,   593,   594,   595,   596,   597,   598,
+     601,   602,   606,   633,   654,   668,   680
 };
 #endif
 
@@ -798,11 +809,11 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "INT", "FLOAT", "VOID", "UNSIGNED_INT",
   "S_INT", "L_INT", "ID", "INT_CONST", "FLOAT_CONST", "WHILE", "FOR", "IF",
   "RETURN", "PREPROC", "LE", "LT", "GE", "GT", "STRING", "PRINT",
-  "FUNCTION", "return_typesAY", "ELSE", "INCR", "DECR", "'='", "'('",
-  "')'", "','", "'{'", "'}'", "';'", "'['", "']'", "'+'", "'-'", "'*'",
-  "'/'", "$accept", "start", "Function", "param_list", "Type",
-  "compound_stmt", "statement_list", "stmt", "function_call", "call_list",
-  "if_stmt", "while_stmt", "for_stmt", "expr1", "secondary_assignment",
+  "FUNCTION", "ARRAY", "ELSE", "INCR", "DECR", "'='", "'('", "')'", "','",
+  "'{'", "'}'", "';'", "'['", "']'", "'+'", "'-'", "'*'", "'/'", "$accept",
+  "start", "Function", "param_list", "Type", "compound_stmt",
+  "statement_list", "stmt", "function_call", "call_list", "if_stmt",
+  "while_stmt", "for_stmt", "expr1", "secondary_assignment",
   "assignment_exp", "exp", "consttype", "Declaration", YY_NULLPTR
 };
 #endif
@@ -1682,7 +1693,7 @@ yyreduce:
   switch (yyn)
     {
         case 6:
-#line 327 "sem.y" /* yacc.c:1646  */
+#line 338 "sem.y" /* yacc.c:1646  */
     {
 	 
 	if ((yyvsp[-4].ival)!=returntype_func(curr_type))
@@ -1694,16 +1705,16 @@ yyreduce:
 		printf("Error : Type mismatch in redeclaration of %s : Line %d\n",(yyvsp[-3].str),printline());
 	else
 	{
-		insert((yyvsp[-3].str),FUNCTION,var_addr, 0);
-		insert((yyvsp[-3].str),(yyvsp[-4].ival),var_addr, 0);
+		insert((yyvsp[-3].str),FUNCTION,var_addr, 0, 1);
+		insert((yyvsp[-3].str),(yyvsp[-4].ival),var_addr, 0, 0);
 		var_addr+=4;
 	}
 	}
-#line 1703 "y.tab.c" /* yacc.c:1646  */
+#line 1714 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 343 "sem.y" /* yacc.c:1646  */
+#line 354 "sem.y" /* yacc.c:1646  */
     {
 	
 
@@ -1717,44 +1728,44 @@ yyreduce:
 	else
 	{
 		insertFunc((yyvsp[-4].str),FUNCTION,var_addr, 0, fname, nP);
-		insert((yyvsp[-4].str),(yyvsp[-5].ival),var_addr, 0);
+		insert((yyvsp[-4].str),(yyvsp[-5].ival),var_addr, 0, 0);
 		var_addr+=4;
 	}
 	}
-#line 1725 "y.tab.c" /* yacc.c:1646  */
+#line 1736 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 361 "sem.y" /* yacc.c:1646  */
+#line 372 "sem.y" /* yacc.c:1646  */
     { nP = 1; fname[nP-1] = (yyvsp[-1].ival); }
-#line 1731 "y.tab.c" /* yacc.c:1646  */
+#line 1742 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 362 "sem.y" /* yacc.c:1646  */
+#line 373 "sem.y" /* yacc.c:1646  */
     { nP++; fname[nP-1] = (yyvsp[-1].ival); }
-#line 1737 "y.tab.c" /* yacc.c:1646  */
+#line 1748 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 389 "sem.y" /* yacc.c:1646  */
+#line 400 "sem.y" /* yacc.c:1646  */
     {
 					if (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str))))
 						storereturn(curr_type,FLOAT);
 					else
 						storereturn(curr_type,INT); curr_type++;
 				}
-#line 1748 "y.tab.c" /* yacc.c:1646  */
+#line 1759 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 395 "sem.y" /* yacc.c:1646  */
+#line 406 "sem.y" /* yacc.c:1646  */
     {storereturn(curr_type,VOID); curr_type++;}
-#line 1754 "y.tab.c" /* yacc.c:1646  */
+#line 1765 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 402 "sem.y" /* yacc.c:1646  */
+#line 413 "sem.y" /* yacc.c:1646  */
     {
 	if (lookup((yyvsp[-4].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-4].str), printline());
@@ -1772,11 +1783,11 @@ yyreduce:
 	}
 	
 }
-#line 1776 "y.tab.c" /* yacc.c:1646  */
+#line 1787 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 419 "sem.y" /* yacc.c:1646  */
+#line 430 "sem.y" /* yacc.c:1646  */
     {
 	if (lookup((yyvsp[-3].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-3].str), printline());
@@ -1786,35 +1797,35 @@ yyreduce:
 			printf("\nError : Parameter list does not match signature : Line %d\n", printline()); 
 	}
 }
-#line 1790 "y.tab.c" /* yacc.c:1646  */
+#line 1801 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 429 "sem.y" /* yacc.c:1646  */
+#line 440 "sem.y" /* yacc.c:1646  */
     { temptype = returntype((yyvsp[0].str), scope_stack[index1-1]); it = 0; fTypes2[it] = temptype; }
-#line 1796 "y.tab.c" /* yacc.c:1646  */
+#line 1807 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 430 "sem.y" /* yacc.c:1646  */
+#line 441 "sem.y" /* yacc.c:1646  */
     { temptype = temp; it = 0; fTypes2[it] = temptype; }
-#line 1802 "y.tab.c" /* yacc.c:1646  */
+#line 1813 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 431 "sem.y" /* yacc.c:1646  */
+#line 442 "sem.y" /* yacc.c:1646  */
     { it++; temptype = returntype((yyvsp[0].str), scope_stack[index1-1]); fTypes2[it] = temptype;}
-#line 1808 "y.tab.c" /* yacc.c:1646  */
+#line 1819 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 432 "sem.y" /* yacc.c:1646  */
+#line 443 "sem.y" /* yacc.c:1646  */
     { temptype = temp; it++; fTypes2[it] = temptype;}
-#line 1814 "y.tab.c" /* yacc.c:1646  */
+#line 1825 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 456 "sem.y" /* yacc.c:1646  */
+#line 467 "sem.y" /* yacc.c:1646  */
     {
 	  c=0;
 		int scope_curr=returnScope((yyvsp[-2].str),scope_stack[index1-1]);
@@ -1829,62 +1840,62 @@ yyreduce:
 			if ((scope<=curr_scope && end[scope]==0) && !(scope==0))
 				update_value((yyvsp[-2].str),(yyvsp[0].str),curr_scope);
 		}
-		if (isreturn_typesay((yyvsp[-2].str)))
-				printf("\nError: return_typesay Identfier has no subscript: Line %d\n", printline());
+		if (isArray((yyvsp[-2].str)))
+				printf("\nError: array Identfier has no subscript: Line %d\n", printline());
 
 		}
-#line 1837 "y.tab.c" /* yacc.c:1646  */
+#line 1848 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 475 "sem.y" /* yacc.c:1646  */
+#line 486 "sem.y" /* yacc.c:1646  */
     {
 					if (lookup((yyvsp[-2].str)))
 						printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-2].str),printline());
 
-						if (isreturn_typesay((yyvsp[-2].str)))
-								printf("\nError: return_typesay identfier has no subscript: Line %d\n", printline());
+						if (isArray((yyvsp[-2].str)))
+								printf("\nError: array identfier has no subscript: Line %d\n", printline());
 
 				}
-#line 1850 "y.tab.c" /* yacc.c:1646  */
+#line 1861 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 485 "sem.y" /* yacc.c:1646  */
+#line 496 "sem.y" /* yacc.c:1646  */
     {
 		if (lookup((yyvsp[0].str)))
 			printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[0].str),printline());
 
-			if (isreturn_typesay((yyvsp[0].str)))
-				printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+			if (isArray((yyvsp[0].str)))
+				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 		}
-#line 1863 "y.tab.c" /* yacc.c:1646  */
+#line 1874 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 497 "sem.y" /* yacc.c:1646  */
+#line 508 "sem.y" /* yacc.c:1646  */
     {
 			if (lookup((yyvsp[-5].str)))
 				printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-5].str),printline());
 
-			if (isreturn_typesay((yyvsp[-5].str))==0)
-				printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+			if (isArray((yyvsp[-5].str))==0)
+				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
-				float bound = isreturn_typesay((yyvsp[-5].str));
+				float bound = isArray((yyvsp[-5].str));
 
-				if (isreturn_typesay((yyvsp[-5].str)) && (atoi((yyvsp[-3].str)) >= bound || atoi((yyvsp[-3].str)) < 0))
-					printf("\nError: return_typesay subscript out of bounds : Line %d\n", printline());
+				if (isArray((yyvsp[-5].str)) && (atoi((yyvsp[-3].str)) >= bound || atoi((yyvsp[-3].str)) < 0))
+					printf("\nError: array subscript out of bounds : Line %d\n", printline());
 
 		}
-#line 1881 "y.tab.c" /* yacc.c:1646  */
+#line 1892 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 512 "sem.y" /* yacc.c:1646  */
+#line 523 "sem.y" /* yacc.c:1646  */
     {
-	if (isreturn_typesay((yyvsp[0].str)))
-	 printf("\nError: return_typesay identifier has no subscript: Line %d\n", printline());
+	if (isArray((yyvsp[0].str)))
+	 printf("\nError: array identifier has no subscript: Line %d\n", printline());
 
 	if (c==0)
 	{
@@ -1910,11 +1921,11 @@ yyreduce:
   else
     printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[0].str),printline());
 	}
-#line 1914 "y.tab.c" /* yacc.c:1646  */
+#line 1925 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 540 "sem.y" /* yacc.c:1646  */
+#line 551 "sem.y" /* yacc.c:1646  */
     {
 		if (c==0)
 		{
@@ -1940,32 +1951,32 @@ yyreduce:
 	  else
 	    printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[-3].str),printline());
 
-		if (isreturn_typesay((yyvsp[-3].str))==0)
-			printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+		if (isArray((yyvsp[-3].str))==0)
+			printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
-		float bound = isreturn_typesay((yyvsp[-3].str));
+		float bound = isArray((yyvsp[-3].str));
 
-		if (isreturn_typesay((yyvsp[-3].str)) && (atoi((yyvsp[-1].str)) >= bound || atoi((yyvsp[-1].str)) < 0) )
-			printf("\nError: return_typesay subscript out of bounds : Line %d\n", printline());
+		if (isArray((yyvsp[-3].str)) && (atoi((yyvsp[-1].str)) >= bound || atoi((yyvsp[-1].str)) < 0) )
+			printf("\nError: array subscript out of bounds : Line %d\n", printline());
 
 	}
-#line 1953 "y.tab.c" /* yacc.c:1646  */
+#line 1964 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 590 "sem.y" /* yacc.c:1646  */
+#line 601 "sem.y" /* yacc.c:1646  */
     { temp = 258;}
-#line 1959 "y.tab.c" /* yacc.c:1646  */
+#line 1970 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 591 "sem.y" /* yacc.c:1646  */
+#line 602 "sem.y" /* yacc.c:1646  */
     { temp = 259;}
-#line 1965 "y.tab.c" /* yacc.c:1646  */
+#line 1976 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 596 "sem.y" /* yacc.c:1646  */
+#line 607 "sem.y" /* yacc.c:1646  */
     {
 			if ( (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str)))) && (yyvsp[-4].ival)==258)
 				printf("\nError : Type Mismatch : Line %d\n",printline());
@@ -1986,17 +1997,17 @@ yyreduce:
 			else
 			{
 				int scope=scope_stack[index1-1];
-				insert((yyvsp[-3].str),(yyvsp[-4].ival),var_addr, 0);
+				insert((yyvsp[-3].str),(yyvsp[-4].ival),var_addr, 0, 0);
 				insertscope((yyvsp[-3].str),scope);
 				update_value((yyvsp[-3].str),(yyvsp[-1].str),scope_stack[index1-1]);
 				var_addr+=4;
 			}
 		}
-#line 1996 "y.tab.c" /* yacc.c:1646  */
+#line 2007 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 622 "sem.y" /* yacc.c:1646  */
+#line 633 "sem.y" /* yacc.c:1646  */
     {
 		if (!lookup((yyvsp[-1].str)))
 		{
@@ -2013,16 +2024,16 @@ yyreduce:
 		else
 		{
 			int scope=scope_stack[index1-1];
-			insert((yyvsp[-1].str),(yyvsp[-2].ival),var_addr, 0);
+			insert((yyvsp[-1].str),(yyvsp[-2].ival),var_addr, 0, 0);
 			insertscope((yyvsp[-1].str),scope);
 			var_addr+=4;
 		}
 	}
-#line 2022 "y.tab.c" /* yacc.c:1646  */
+#line 2033 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 643 "sem.y" /* yacc.c:1646  */
+#line 654 "sem.y" /* yacc.c:1646  */
     {
 				if (!lookup((yyvsp[-1].str)))
 				{
@@ -2036,28 +2047,28 @@ yyreduce:
 				else
 					printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[-1].str),printline());
 				}
-#line 2040 "y.tab.c" /* yacc.c:1646  */
+#line 2051 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 657 "sem.y" /* yacc.c:1646  */
+#line 668 "sem.y" /* yacc.c:1646  */
     {
-						insert((yyvsp[-4].str),return_typesAY,var_addr,1);
-						insert((yyvsp[-4].str),(yyvsp[-5].ival),var_addr,1);
+						insert((yyvsp[-4].str),ARRAY,var_addr,1,0);
+						insert((yyvsp[-4].str),(yyvsp[-5].ival),var_addr,1,0);
 						update_value((yyvsp[-4].str),(yyvsp[-2].str),scope_stack[index1-1]);
 						int scope=scope_stack[index1-1];
 						insertscope((yyvsp[-4].str), scope);
 						var_addr+=4;
 						if (atoi((yyvsp[-2].str))<=0)
 						{
-							printf("\nError: Illegal return_typesay subscript %d : Line %d\n", atoi((yyvsp[-2].str)), printline());
+							printf("\nError: Illegal array subscript %d : Line %d\n", atoi((yyvsp[-2].str)), printline());
 						}
 					}
-#line 2057 "y.tab.c" /* yacc.c:1646  */
+#line 2068 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2061 "y.tab.c" /* yacc.c:1646  */
+#line 2072 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2285,7 +2296,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 672 "sem.y" /* yacc.c:1906  */
+#line 683 "sem.y" /* yacc.c:1906  */
 
 
 #include "lex.yy.c"
@@ -2295,7 +2306,7 @@ int main(int argc, char *argv[])
 	yyin =fopen(argv[1],"r");
 	if (!yyparse())
 	{
-		printf("Parsing done\n");
+		printf("PARSING DONE\n");
 		print();
 	}
 	else

@@ -2,11 +2,29 @@
 
 int arr2[10];
 
-int func(int b, int c)
+float func(int b, float c)
 {
 	int a;
 	int arr1[10];
+	return 4.3;
+}
+
+int func2()
+{
+	printf("Hello");
 	return 1;
+}
+
+void fn(int x)
+{
+	printf("Hello");
+	return;
+}
+
+int gnome(long int abc, float xyz)
+{
+	printf("HI");
+	return 6;
 }
 
 int main()

@@ -27,7 +27,8 @@
 		int addr;
 		float fvalue;
 		int scope;
-		int return_typesFlag;
+		int arrFlag;
+		int funcFlag;
 		int fType[100]; 
 		int numParams; 
 	}Symbol_Table[100];
@@ -58,18 +59,18 @@
 		return return_types[ct-1];
 	}
 
-	int isreturn_typesay(char* a)
+	int isArray(char* a)
 	{
 		int i;
 		for (i=0;i<=n;i++)
 		{
 			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				if (Symbol_Table[i].return_typesFlag==1)
+				if (Symbol_Table[i].arrFlag==1)
 					return Symbol_Table[i].fvalue;
 						else
 							return 0;
-			 }
+			}
 		}
 		return 0;
 	}
@@ -165,21 +166,25 @@
 		}
 	}
 
-	void insert(char *name, int type, int addr, int return_typesFlag)
+	void insert(char *name, int type, int addr, int arrFlag, int funcStatus)
 	{
 		int i;
 		if (lookup(name))
 		{
 			strcpy(Symbol_Table[n].token,name);
+			if (funcStatus == 1)
+				Symbol_Table[n].funcFlag=1;
 			Symbol_Table[n].tn=1;
 			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
 			Symbol_Table[n].addr=addr;
 			Symbol_Table[n].sno=n+1;
-			Symbol_Table[n].return_typesFlag = return_typesFlag;
+			Symbol_Table[n].arrFlag = arrFlag;
 			n++;
 		}
 		else
 		{
+			if (funcStatus == 1)
+				Symbol_Table[n].funcFlag=1;
 			for (i=0;i<n;i++)
 			{
 				if (!strcmp(name,Symbol_Table[i].token))
@@ -193,7 +198,7 @@
 
 		return;
 	}
-	void insertFunc(char *name, int type, int addr, int return_typesFlag, int params[100], int numParams)
+	void insertFunc(char *name, int type, int addr, int arrFlag, int params[100], int numParams)
 	{
 		int i;
 		if (lookup(name))
@@ -203,7 +208,8 @@
 			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
 			Symbol_Table[n].addr=addr;
 			Symbol_Table[n].sno=n+1;
-			Symbol_Table[n].return_typesFlag = return_typesFlag;
+			Symbol_Table[n].arrFlag = arrFlag;
+			Symbol_Table[n].funcFlag = 1;
 			for (int j=0; j<numParams; j++)
 				Symbol_Table[n].fType[j] = params[j];
 			Symbol_Table[n].numParams = numParams;
@@ -224,7 +230,7 @@
 
 		return;
 	}
-	void insert_dup(char *name, int type, int addr,int s_c, int return_typesFlag)
+	void insert_dup(char *name, int type, int addr,int s_c, int arrFlag)
 	{
 		strcpy(Symbol_Table[n].token,name);
 		Symbol_Table[n].tn=1;
@@ -232,7 +238,7 @@
 		Symbol_Table[n].addr=addr;
 		Symbol_Table[n].sno=n+1;
 		Symbol_Table[n].scope=s_c;
-		Symbol_Table[n].return_typesFlag=return_typesFlag;
+		Symbol_Table[n].arrFlag=arrFlag;
 		n++;
 		return;
 	}
@@ -240,22 +246,27 @@
 	void print()
 	{
 		int i,j;
-		printf("\nSymbol Table\n\n");
-		printf("\nAddress\tToken\tValue\tScope\tIsreturn_typesay\treturn_typesayDim\tType\tReturn Type\tArguments\n");
+		printf("\n------------------------------------------------------------------------------------------");
+		printf("\n\t\t\t\t\tSYMBOL TABLE\n");
+		printf("------------------------------------------------------------------------------------------");
+		printf("\nAddress\tToken\tValue\tScope\tisArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for (i=0;i<n;i++)
 		{
-			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263)
+			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263|| Symbol_Table[i].type[0]==274)
 				printf("%d\t%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			else
 			{
-				if (Symbol_Table[i].return_typesFlag)
+				if (Symbol_Table[i].arrFlag)
 					printf("%d\t%s\t-\t%d\tTrue\t%d\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope, (int)Symbol_Table[i].fvalue);
 				else if (Symbol_Table[i].type[0]==274)
 					printf("%d\t%s\t-\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope);
 				else
 					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
-				
+			
+			if (Symbol_Table[i].funcFlag == 1)
+				printf("\tFUNCTION");
+
 			for (j=0;j<Symbol_Table[i].tn;j++)
 			{
 				if (Symbol_Table[i].type[j]==258)
@@ -265,7 +276,7 @@
 				else if (Symbol_Table[i].type[j]==274)
 					printf("\tFUNCTION");
 				else if (Symbol_Table[i].type[j]==269)
-					printf("\treturn_typesAY");
+					printf("\tARRAY");
 				else if (Symbol_Table[i].type[j]==260)
 					printf("\tVOID");
 				else if (Symbol_Table[i].type[j]==261)
@@ -285,7 +296,7 @@
 				else if (Symbol_Table[i].fType[j]==274)
 					printf("FUNCTION,");
 				else if (Symbol_Table[i].fType[j]==269)
-					printf("return_typesAY,");
+					printf("ARRAY,");
 				else if (Symbol_Table[i].fType[j]==260)
 					printf("VOID,");
 				else if (Symbol_Table[i].fType[j]==261)
@@ -303,7 +314,7 @@
 
 %token<ival> INT FLOAT VOID UNSIGNED_INT S_INT L_INT
 %token<str> ID INT_CONST FLOAT_CONST
-%token WHILE FOR IF RETURN PREPROC LE LT GE GT STRING PRINT FUNCTION return_typesAY ELSE
+%token WHILE FOR IF RETURN PREPROC LE LT GE GT STRING PRINT FUNCTION ARRAY ELSE
 %token INCR DECR
 %right '='
 
@@ -335,8 +346,8 @@ Function
 		printf("Error : Type mismatch in redeclaration of %s : Line %d\n",$2,printline());
 	else
 	{
-		insert($2,FUNCTION,var_addr, 0);
-		insert($2,$1,var_addr, 0);
+		insert($2,FUNCTION,var_addr, 0, 1);
+		insert($2,$1,var_addr, 0, 0);
 		var_addr+=4;
 	}
 	}
@@ -353,7 +364,7 @@ Function
 	else
 	{
 		insertFunc($2,FUNCTION,var_addr, 0, fname, nP);
-		insert($2,$1,var_addr, 0);
+		insert($2,$1,var_addr, 0, 0);
 		var_addr+=4;
 	}
 	};
@@ -467,8 +478,8 @@ secondary_assignment : ID '=' secondary_assignment
 			if ((scope<=curr_scope && end[scope]==0) && !(scope==0))
 				update_value($1,$3,curr_scope);
 		}
-		if (isreturn_typesay($1))
-				printf("\nError: return_typesay Identfier has no subscript: Line %d\n", printline());
+		if (isArray($1))
+				printf("\nError: array Identfier has no subscript: Line %d\n", printline());
 
 		}
 
@@ -476,8 +487,8 @@ secondary_assignment : ID '=' secondary_assignment
 					if (lookup($1))
 						printf("\nUndeclared Variable %s : Line %d\n",$1,printline());
 
-						if (isreturn_typesay($1))
-								printf("\nError: return_typesay identfier has no subscript: Line %d\n", printline());
+						if (isArray($1))
+								printf("\nError: array identfier has no subscript: Line %d\n", printline());
 
 				}
 	| assignment_exp
@@ -486,8 +497,8 @@ secondary_assignment : ID '=' secondary_assignment
 		if (lookup($1))
 			printf("\nUndeclared Variable %s : Line %d\n",$1,printline());
 
-			if (isreturn_typesay($1))
-				printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+			if (isArray($1))
+				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 		}
 	| exp
@@ -498,20 +509,20 @@ assignment_exp :  ID '[' INT_CONST ']' '=' exp {
 			if (lookup($1))
 				printf("\nUndeclared Variable %s : Line %d\n",$1,printline());
 
-			if (isreturn_typesay($1)==0)
-				printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+			if (isArray($1)==0)
+				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
-				float bound = isreturn_typesay($1);
+				float bound = isArray($1);
 
-				if (isreturn_typesay($1) && (atoi($3) >= bound || atoi($3) < 0))
-					printf("\nError: return_typesay subscript out of bounds : Line %d\n", printline());
+				if (isArray($1) && (atoi($3) >= bound || atoi($3) < 0))
+					printf("\nError: array subscript out of bounds : Line %d\n", printline());
 
 		}
 		;
 
 exp : ID {
-	if (isreturn_typesay($1))
-	 printf("\nError: return_typesay identifier has no subscript: Line %d\n", printline());
+	if (isArray($1))
+	 printf("\nError: array identifier has no subscript: Line %d\n", printline());
 
 	if (c==0)
 	{
@@ -562,13 +573,13 @@ exp : ID {
 	  else
 	    printf("\nError : Undeclared Variable %s : Line %d\n",$1,printline());
 
-		if (isreturn_typesay($1)==0)
-			printf("\nError: Non-return_typesay variable used as an return_typesay: Line %d\n", printline());
+		if (isArray($1)==0)
+			printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
-		float bound = isreturn_typesay($1);
+		float bound = isArray($1);
 
-		if (isreturn_typesay($1) && (atoi($3) >= bound || atoi($3) < 0) )
-			printf("\nError: return_typesay subscript out of bounds : Line %d\n", printline());
+		if (isArray($1) && (atoi($3) >= bound || atoi($3) < 0) )
+			printf("\nError: array subscript out of bounds : Line %d\n", printline());
 
 	}
 	| exp '+' exp
@@ -613,7 +624,7 @@ Declaration
 			else
 			{
 				int scope=scope_stack[index1-1];
-				insert($2,$1,var_addr, 0);
+				insert($2,$1,var_addr, 0, 0);
 				insertscope($2,scope);
 				update_value($2,$4,scope_stack[index1-1]);
 				var_addr+=4;
@@ -635,7 +646,7 @@ Declaration
 		else
 		{
 			int scope=scope_stack[index1-1];
-			insert($2,$1,var_addr, 0);
+			insert($2,$1,var_addr, 0, 0);
 			insertscope($2,scope);
 			var_addr+=4;
 		}
@@ -655,15 +666,15 @@ Declaration
 				}
 
 	| Type ID '[' INT_CONST ']' ';' {
-						insert($2,return_typesAY,var_addr,1);
-						insert($2,$1,var_addr,1);
+						insert($2,ARRAY,var_addr,1,0);
+						insert($2,$1,var_addr,1,0);
 						update_value($2,$4,scope_stack[index1-1]);
 						int scope=scope_stack[index1-1];
 						insertscope($2, scope);
 						var_addr+=4;
 						if (atoi($4)<=0)
 						{
-							printf("\nError: Illegal return_typesay subscript %d : Line %d\n", atoi($4), printline());
+							printf("\nError: Illegal array subscript %d : Line %d\n", atoi($4), printline());
 						}
 					}
 	| error
@@ -678,7 +689,7 @@ int main(int argc, char *argv[])
 	yyin =fopen(argv[1],"r");
 	if (!yyparse())
 	{
-		printf("Parsing done\n");
+		printf("PARSING DONE\n");
 		print();
 	}
 	else
