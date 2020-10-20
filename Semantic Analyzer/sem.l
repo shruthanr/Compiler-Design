@@ -3,6 +3,13 @@ digit [0-9]
 
 
 %%
+"<="		return LE;
+"<"         return LT;
+">="        return GE;
+">"         return GT;
+"++"        return INCR;
+"--"        return DECR;
+
 [ \t] ;
 \n	{yylineno++;}
 "{"	{block_start(); return '{';}
@@ -22,13 +29,6 @@ printf	return PRINT;
 {alpha}({alpha}|{digit})* {yylval.str=strdup(yytext); return ID;}
 {digit}+	{yylval.str=strdup(yytext);return INT_CONST;}
 {digit}+\.{digit}+ 	{yylval.str=strdup(yytext); return FLOAT_CONST;}
-
-"<="		return LE;
-"<"         return LT;
-">="        return GE;
-">"         return GT;
-"++"        return INCR;
-"--"        return DECR;
 
 \/\/.* ;
 \/\*(.*\n)*.*\*\/ ;

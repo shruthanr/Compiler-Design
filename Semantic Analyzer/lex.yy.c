@@ -362,18 +362,18 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[108] =
     {   0,
-        0,    0,   31,   29,    1,    2,   29,   29,   29,   29,
-       18,   21,   23,   17,   17,   17,   17,   17,   17,   17,
-       17,   17,   17,   17,    3,    4,   29,    0,   28,   24,
-       25,    0,   26,    0,   18,   20,   22,   17,   17,   17,
-       12,   17,   17,   17,   17,   17,   17,   17,   17,    0,
-        0,    0,    0,   26,   19,   17,   17,    5,   17,   17,
-       17,   17,   17,   17,   17,    0,   27,   11,   17,   17,
-       17,   17,   17,   17,    7,   17,    0,    6,    0,   17,
-       17,   17,   17,   14,    0,    0,   16,   15,    0,   17,
-        0,    0,    0,   17,    0,    9,    0,   17,    0,   10,
+        0,    0,   31,   29,    7,    8,   29,   29,   29,   29,
+       24,    2,    4,   23,   23,   23,   23,   23,   23,   23,
+       23,   23,   23,   23,    9,   10,   29,    0,   28,    5,
+        6,    0,   26,    0,   24,    1,    3,   23,   23,   23,
+       18,   23,   23,   23,   23,   23,   23,   23,   23,    0,
+        0,    0,    0,   26,   25,   23,   23,   11,   23,   23,
+       23,   23,   23,   23,   23,    0,   27,   17,   23,   23,
+       23,   23,   23,   23,   13,   23,    0,   12,    0,   23,
+       23,   23,   23,   20,    0,    0,   22,   21,    0,   23,
+        0,    0,    0,   23,    0,   15,    0,   23,    0,   16,
 
-        0,    0,    0,   13,    0,    8,    0
+        0,    0,    0,   19,    0,   14,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -794,128 +794,128 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 6 "sem.l"
-;
+return LE;
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
 #line 7 "sem.l"
-{yylineno++;}
+return LT;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 8 "sem.l"
-{block_start(); return '{';}
+return GE;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 9 "sem.l"
-{block_end(); return '}';}
+return GT;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 10 "sem.l"
-{yylval.ival = INT; return INT;}
+return INCR;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 11 "sem.l"
-{yylval.ival = FLOAT; return FLOAT;}
+return DECR;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 12 "sem.l"
-{yylval.ival = VOID; return VOID;}
+#line 13 "sem.l"
+;
 	YY_BREAK
 case 8:
+/* rule 8 can match eol */
 YY_RULE_SETUP
-#line 13 "sem.l"
-{yylval.ival = UNSIGNED_INT; return UNSIGNED_INT;}
+#line 14 "sem.l"
+{yylineno++;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 14 "sem.l"
-{yylval.ival = L_INT; return L_INT;}
+#line 15 "sem.l"
+{block_start(); return '{';}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 15 "sem.l"
-{yylval.ival = S_INT; return S_INT;}
+#line 16 "sem.l"
+{block_end(); return '}';}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 16 "sem.l"
-{return ELSE;}
+#line 17 "sem.l"
+{yylval.ival = INT; return INT;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 17 "sem.l"
-return IF;
+#line 18 "sem.l"
+{yylval.ival = FLOAT; return FLOAT;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 18 "sem.l"
-return PREPROC;
+#line 19 "sem.l"
+{yylval.ival = VOID; return VOID;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 19 "sem.l"
-return WHILE;
+#line 20 "sem.l"
+{yylval.ival = UNSIGNED_INT; return UNSIGNED_INT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 20 "sem.l"
-return RETURN;
+#line 21 "sem.l"
+{yylval.ival = L_INT; return L_INT;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 21 "sem.l"
-return PRINT;
+#line 22 "sem.l"
+{yylval.ival = S_INT; return S_INT;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 22 "sem.l"
-{yylval.str=strdup(yytext); return ID;}
+#line 23 "sem.l"
+{return ELSE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 23 "sem.l"
-{yylval.str=strdup(yytext);return INT_CONST;}
+#line 24 "sem.l"
+return IF;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 24 "sem.l"
-{yylval.str=strdup(yytext); return FLOAT_CONST;}
+#line 25 "sem.l"
+return PREPROC;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 26 "sem.l"
-return LE;
+return WHILE;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 27 "sem.l"
-return LT;
+return RETURN;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 28 "sem.l"
-return GE;
+return PRINT;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 29 "sem.l"
-return GT;
+{yylval.str=strdup(yytext); return ID;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 30 "sem.l"
-return INCR;
+{yylval.str=strdup(yytext);return INT_CONST;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 31 "sem.l"
-return DECR;
+{yylval.str=strdup(yytext); return FLOAT_CONST;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
@@ -1952,5 +1952,4 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 37 "sem.l"
-
 

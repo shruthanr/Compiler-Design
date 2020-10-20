@@ -95,7 +95,7 @@
 		int arrFlag;
 		int fType[100]; 
 		int numParams; 
-	}st[100];
+	}Symbol_Table[100];
 
 	int n=0,arr[10];
 
@@ -108,11 +108,11 @@
 	void insertscope(char *a,int s)
 	{
 		int i;
-		for(i=0;i<n;i++)
+		for (i=0;i<n;i++)
 		{
-			if(!strcmp(a,st[i].token))
+			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				st[i].scope=s;
+				Symbol_Table[i].scope=s;
 				break;
 			}
 		}
@@ -126,12 +126,12 @@
 	int isArray(char* a)
 	{
 		int i;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token))
+			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				if(st[i].arrFlag==1)
-					return st[i].fvalue;
+				if (Symbol_Table[i].arrFlag==1)
+					return Symbol_Table[i].fvalue;
 						else
 							return 0;
 			 }
@@ -142,11 +142,11 @@
 	int retNumParams(char* a)
 	{
 		int i;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token))
+			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				return st[i].numParams;
+				return Symbol_Table[i].numParams;
 			}
 		}
 		return 0;
@@ -155,27 +155,27 @@
 	void getParams(char* a)
 	{
 		int i;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token))
+			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				for(int j=0; j<st[i].numParams; j++)
-					fTypes[j] = st[i].fType[j]; 
+				for (int j=0; j<Symbol_Table[i].numParams; j++)
+					fTypes[j] = Symbol_Table[i].fType[j]; 
 			}
 		}
 		return 0;
 	}
-	int returnscope(char *a,int cs)
+	int returnScope(char *a,int cs)
 	{
 		//printf("\nString is: %s", a);
 		int i;
 		int max = 0;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token))
+			if (!strcmp(a,Symbol_Table[i].token))
 			{
-				if(st[i].scope>=max)
-					max = st[i].scope;
+				if (Symbol_Table[i].scope>=max)
+					max = Symbol_Table[i].scope;
 			}
 		}
 		return max;
@@ -184,9 +184,9 @@
 	int lookup(char *a)
 	{
 		int i;
-		for(i=0;i<n;i++)
+		for (i=0;i<n;i++)
 		{
-			if( !strcmp( a, st[i].token) )
+			if ( !strcmp( a, Symbol_Table[i].token) )
 				return 0;
 		}
 		return 1;
@@ -195,10 +195,10 @@
 	int returntype(char *a,int scope_curr)
 	{
 		int i;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token) && st[i].scope==scope_curr)
-				return st[i].type[0];
+			if (!strcmp(a,Symbol_Table[i].token) && Symbol_Table[i].scope==scope_curr)
+				return Symbol_Table[i].type[0];
 		}
 	}
 
@@ -206,25 +206,25 @@
 	{
 		int i,j,k;
 		int max=0;
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token)   && sc>=st[i].scope)
+			if (!strcmp(a,Symbol_Table[i].token)   && sc>=Symbol_Table[i].scope)
 			{
-				if(st[i].scope>=max)
-					max=st[i].scope;
+				if (Symbol_Table[i].scope>=max)
+					max=Symbol_Table[i].scope;
 			}
 		}
-		for(i=0;i<=n;i++)
+		for (i=0;i<=n;i++)
 		{
-			if(!strcmp(a,st[i].token)   && max==st[i].scope)
+			if (!strcmp(a,Symbol_Table[i].token)   && max==Symbol_Table[i].scope)
 			{
 				float temp=atof(b);
-				for(k=0;k<st[i].tn;k++)
+				for (k=0;k<Symbol_Table[i].tn;k++)
 				{
-					if(st[i].type[k]==258||st[i].type[0]==269)
-						st[i].fvalue=(int)temp;
+					if (Symbol_Table[i].type[k]==258||Symbol_Table[i].type[0]==269)
+						Symbol_Table[i].fvalue=(int)temp;
 					else
-						st[i].fvalue=temp;
+						Symbol_Table[i].fvalue=temp;
 				}
 			}
 		}
@@ -233,24 +233,24 @@
 	void insert(char *name, int type, int addr, int arrFlag)
 	{
 		int i;
-		if(lookup(name))
+		if (lookup(name))
 		{
-			strcpy(st[n].token,name);
-			st[n].tn=1;
-			st[n].type[st[n].tn-1]=type;
-			st[n].addr=addr;
-			st[n].sno=n+1;
-			st[n].arrFlag = arrFlag;
+			strcpy(Symbol_Table[n].token,name);
+			Symbol_Table[n].tn=1;
+			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
+			Symbol_Table[n].addr=addr;
+			Symbol_Table[n].sno=n+1;
+			Symbol_Table[n].arrFlag = arrFlag;
 			n++;
 		}
 		else
 		{
-			for(i=0;i<n;i++)
+			for (i=0;i<n;i++)
 			{
-				if(!strcmp(name,st[i].token))
+				if (!strcmp(name,Symbol_Table[i].token))
 				{
-					st[i].tn++;
-					st[i].type[st[i].tn-1]=type;
+					Symbol_Table[i].tn++;
+					Symbol_Table[i].type[Symbol_Table[i].tn-1]=type;
 					break;
 				}
 			}
@@ -261,27 +261,27 @@
 	void insertFunc(char *name, int type, int addr, int arrFlag, int params[100], int numParams)
 	{
 		int i;
-		if(lookup(name))
+		if (lookup(name))
 		{
-			strcpy(st[n].token,name);
-			st[n].tn=1;
-			st[n].type[st[n].tn-1]=type;
-			st[n].addr=addr;
-			st[n].sno=n+1;
-			st[n].arrFlag = arrFlag;
-			for(int j=0; j<numParams; j++)
-				st[n].fType[j] = params[j];
-			st[n].numParams = numParams;
+			strcpy(Symbol_Table[n].token,name);
+			Symbol_Table[n].tn=1;
+			Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
+			Symbol_Table[n].addr=addr;
+			Symbol_Table[n].sno=n+1;
+			Symbol_Table[n].arrFlag = arrFlag;
+			for (int j=0; j<numParams; j++)
+				Symbol_Table[n].fType[j] = params[j];
+			Symbol_Table[n].numParams = numParams;
 			n++;
 		}
 		else
 		{
-			for(i=0;i<n;i++)
+			for (i=0;i<n;i++)
 			{
-				if(!strcmp(name,st[i].token))
+				if (!strcmp(name,Symbol_Table[i].token))
 				{
-					st[i].tn++;
-					st[i].type[st[i].tn-1]=type;
+					Symbol_Table[i].tn++;
+					Symbol_Table[i].type[Symbol_Table[i].tn-1]=type;
 					break;
 				}
 			}
@@ -291,13 +291,13 @@
 	}
 	void insert_dup(char *name, int type, int addr,int s_c, int arrFlag)
 	{
-		strcpy(st[n].token,name);
-		st[n].tn=1;
-		st[n].type[st[n].tn-1]=type;
-		st[n].addr=addr;
-		st[n].sno=n+1;
-		st[n].scope=s_c;
-		st[n].arrFlag=arrFlag;
+		strcpy(Symbol_Table[n].token,name);
+		Symbol_Table[n].tn=1;
+		Symbol_Table[n].type[Symbol_Table[n].tn-1]=type;
+		Symbol_Table[n].addr=addr;
+		Symbol_Table[n].sno=n+1;
+		Symbol_Table[n].scope=s_c;
+		Symbol_Table[n].arrFlag=arrFlag;
 		n++;
 		return;
 	}
@@ -307,57 +307,57 @@
 		int i,j;
 		printf("\nSymbol Table\n\n");
 		printf("\nAddress\tToken\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tArguments\n");
-		for(i=0;i<n;i++)
+		for (i=0;i<n;i++)
 		{
-			if(st[i].type[0]==258 || st[i].type[0]==261|| st[i].type[0]==262|| st[i].type[0]==263)
-				printf("%d\t%s\t%d\t%d\tFalse\t-\t",st[i].addr,st[i].token,(int)st[i].fvalue,st[i].scope);
+			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263)
+				printf("%d\t%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			else
 			{
-				if(st[i].arrFlag)
-					printf("%d\t%s\t-\t%d\tTrue\t%d\t",st[i].addr,st[i].token,st[i].scope, (int)st[i].fvalue);
-				else if(st[i].type[0]==274)
-					printf("%d\t%s\t-\t%d\tFalse\t-\t",st[i].addr,st[i].token,st[i].scope);
+				if (Symbol_Table[i].arrFlag)
+					printf("%d\t%s\t-\t%d\tTrue\t%d\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope, (int)Symbol_Table[i].fvalue);
+				else if (Symbol_Table[i].type[0]==274)
+					printf("%d\t%s\t-\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope);
 				else
-					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",st[i].addr,st[i].token,st[i].fvalue,st[i].scope);
+					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
 				
-			for(j=0;j<st[i].tn;j++)
+			for (j=0;j<Symbol_Table[i].tn;j++)
 			{
-				if(st[i].type[j]==258)
+				if (Symbol_Table[i].type[j]==258)
 					printf("\tINT");
-				else if(st[i].type[j]==259)
+				else if (Symbol_Table[i].type[j]==259)
 					printf("\tFLOAT");
-				else if(st[i].type[j]==274)
+				else if (Symbol_Table[i].type[j]==274)
 					printf("\tFUNCTION");
-				else if(st[i].type[j]==269)
+				else if (Symbol_Table[i].type[j]==269)
 					printf("\tARRAY");
-				else if(st[i].type[j]==260)
+				else if (Symbol_Table[i].type[j]==260)
 					printf("\tVOID");
-				else if(st[i].type[j]==261)
+				else if (Symbol_Table[i].type[j]==261)
 			  		printf("\tUNSIGNED INT");
-				else if(st[i].type[j]==263)
+				else if (Symbol_Table[i].type[j]==263)
 			    		printf("\tLONG INT");
-				else if(st[i].type[j]==262)
+				else if (Symbol_Table[i].type[j]==262)
 			      		printf("\tSHORT INT");
 			}
 			printf("\t");
-			for(int j=0;j<st[i].numParams;j++)
+			for (int j=0;j<Symbol_Table[i].numParams;j++)
 			{
-				if(st[i].fType[j]==258)
+				if (Symbol_Table[i].fType[j]==258)
 					printf("INT,");
-				else if(st[i].fType[j]==259)
+				else if (Symbol_Table[i].fType[j]==259)
 					printf("FLOAT,");
-				else if(st[i].fType[j]==274)
+				else if (Symbol_Table[i].fType[j]==274)
 					printf("FUNCTION,");
-				else if(st[i].fType[j]==269)
+				else if (Symbol_Table[i].fType[j]==269)
 					printf("ARRAY,");
-				else if(st[i].fType[j]==260)
+				else if (Symbol_Table[i].fType[j]==260)
 					printf("VOID,");
-				else if(st[i].fType[j]==261)
+				else if (Symbol_Table[i].fType[j]==261)
 			  		printf("UNSIGNED INT,");
-				else if(st[i].fType[j]==263)
+				else if (Symbol_Table[i].fType[j]==263)
 			    		printf("LONG INT,");
-				else if(st[i].fType[j]==262)
+				else if (Symbol_Table[i].fType[j]==262)
 			      		printf("SHORT INT,");
 			}
 			printf("\n");
@@ -1721,7 +1721,7 @@ yyreduce:
   case 24:
 #line 388 "sem.y" /* yacc.c:1646  */
     {
-					if(!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str))))
+					if (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str))))
 						storereturn(curr_type,FLOAT);
 					else
 						storereturn(curr_type,INT); curr_type++;
@@ -1738,18 +1738,18 @@ yyreduce:
   case 29:
 #line 400 "sem.y" /* yacc.c:1646  */
     {
-	if(lookup((yyvsp[-4].str)))
+	if (lookup((yyvsp[-4].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-4].str), printline());
 	else
 	{
-		if(retNumParams((yyvsp[-4].str)) == 0)
+		if (retNumParams((yyvsp[-4].str)) == 0)
 			printf("\nError : Parameter list does not match signature : Line %d\n", printline()); 
 		getParams((yyvsp[-4].str));				
 	}
 
-	for(int j=0; j<retNumParams((yyvsp[-4].str)); j++)
+	for (int j=0; j<retNumParams((yyvsp[-4].str)); j++)
 	{
-		if(fTypes[j] != fTypes2[j])
+		if (fTypes[j] != fTypes2[j])
 			printf("\nError : Parameter list does not match signature : Line %d\n", printline());
 	}
 	
@@ -1760,11 +1760,11 @@ yyreduce:
   case 30:
 #line 417 "sem.y" /* yacc.c:1646  */
     {
-	if(lookup((yyvsp[-3].str)))
+	if (lookup((yyvsp[-3].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-3].str), printline());
 	else
 	{
-		if(retNumParams((yyvsp[-3].str)) != 0)
+		if (retNumParams((yyvsp[-3].str)) != 0)
 			printf("\nError : Parameter list does not match signature : Line %d\n", printline()); 
 	}
 }
@@ -1799,19 +1799,19 @@ yyreduce:
 #line 451 "sem.y" /* yacc.c:1646  */
     {
 	  c=0;
-		int scope_curr=returnscope((yyvsp[-2].str),scope_stack[index1-1]);
+		int scope_curr=returnScope((yyvsp[-2].str),scope_stack[index1-1]);
 		//printf("Scope: %d",scope_curr);
 		int type=returntype((yyvsp[-2].str),scope_curr);
-		if((!(strspn((yyvsp[0].str),"0123456789")==strlen((yyvsp[0].str)))) && type==258)
+		if ((!(strspn((yyvsp[0].str),"0123456789")==strlen((yyvsp[0].str)))) && type==258)
 			printf("\nError : Type Mismatch : Line %d\n",printline());
-		if(!lookup((yyvsp[-2].str)))
+		if (!lookup((yyvsp[-2].str)))
 		{
-			int currscope=scope_stack[index1-1];
-			int scope=returnscope((yyvsp[-2].str),currscope);
-			if((scope<=currscope && end[scope]==0) && !(scope==0))
-				update_value((yyvsp[-2].str),(yyvsp[0].str),currscope);
+			int curr_scope=scope_stack[index1-1];
+			int scope=returnScope((yyvsp[-2].str),curr_scope);
+			if ((scope<=curr_scope && end[scope]==0) && !(scope==0))
+				update_value((yyvsp[-2].str),(yyvsp[0].str),curr_scope);
 		}
-		if(isArray((yyvsp[-2].str)))
+		if (isArray((yyvsp[-2].str)))
 				printf("\nError: Array Identfier has no subscript: Line %d\n", printline());
 
 		}
@@ -1821,10 +1821,10 @@ yyreduce:
   case 44:
 #line 470 "sem.y" /* yacc.c:1646  */
     {
-					if(lookup((yyvsp[-2].str)))
+					if (lookup((yyvsp[-2].str)))
 						printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-2].str),printline());
 
-						if(isArray((yyvsp[-2].str)))
+						if (isArray((yyvsp[-2].str)))
 								printf("\nError: Array identfier has no subscript: Line %d\n", printline());
 
 				}
@@ -1834,10 +1834,10 @@ yyreduce:
   case 47:
 #line 480 "sem.y" /* yacc.c:1646  */
     {
-		if(lookup((yyvsp[0].str)))
+		if (lookup((yyvsp[0].str)))
 			printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[0].str),printline());
 
-			if(isArray((yyvsp[0].str)))
+			if (isArray((yyvsp[0].str)))
 				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 		}
@@ -1847,15 +1847,15 @@ yyreduce:
   case 50:
 #line 492 "sem.y" /* yacc.c:1646  */
     {
-			if(lookup((yyvsp[-5].str)))
+			if (lookup((yyvsp[-5].str)))
 				printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-5].str),printline());
 
-			if(isArray((yyvsp[-5].str))==0)
+			if (isArray((yyvsp[-5].str))==0)
 				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 				float bound = isArray((yyvsp[-5].str));
 
-				if(isArray((yyvsp[-5].str)) && (atoi((yyvsp[-3].str)) >= bound || atoi((yyvsp[-3].str)) < 0))
+				if (isArray((yyvsp[-5].str)) && (atoi((yyvsp[-3].str)) >= bound || atoi((yyvsp[-3].str)) < 0))
 					printf("\nError: Array subscript out of bounds : Line %d\n", printline());
 
 		}
@@ -1865,28 +1865,28 @@ yyreduce:
   case 51:
 #line 507 "sem.y" /* yacc.c:1646  */
     {
-	if(isArray((yyvsp[0].str)))
+	if (isArray((yyvsp[0].str)))
 	 printf("\nError: Array identifier has no subscript: Line %d\n", printline());
 
-	if(c==0)
+	if (c==0)
 	{
 		c=1;
-		int scope_curr=returnscope((yyvsp[0].str),scope_stack[index1-1]);
+		int scope_curr=returnScope((yyvsp[0].str),scope_stack[index1-1]);
 		b=returntype((yyvsp[0].str),scope_curr);
 	}
 	else
 	{
-		int scope_curr1=returnscope((yyvsp[0].str),scope_stack[index1-1]);
-		if(b!=returntype((yyvsp[0].str),scope_curr1))
+		int scope_curr1=returnScope((yyvsp[0].str),scope_stack[index1-1]);
+		if (b!=returntype((yyvsp[0].str),scope_curr1))
 			printf("\nError : Type Mismatch : Line %d\n",printline());
 	}
-	if(!lookup((yyvsp[0].str)))
+	if (!lookup((yyvsp[0].str)))
 	{
-		int currscope=scope_stack[index1-1];
-		//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
-		int scope=returnscope((yyvsp[0].str),currscope);
-		//printf("Curr scope: %d %d\n", currscope,scope);
-		if(!(scope<=currscope && end[scope]==0))
+		int curr_scope=scope_stack[index1-1];
+		//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
+		int scope=returnScope((yyvsp[0].str),curr_scope);
+		//printf("Curr scope: %d %d\n", curr_scope,scope);
+		if (!(scope<=curr_scope && end[scope]==0))
 			printf("\nError : Variable %s out of scope : Line %d\n",(yyvsp[0].str),printline());
 	}
   else
@@ -1898,36 +1898,36 @@ yyreduce:
   case 52:
 #line 535 "sem.y" /* yacc.c:1646  */
     {
-		if(c==0)
+		if (c==0)
 		{
 			c=1;
-			int scope_curr=returnscope((yyvsp[-3].str),scope_stack[index1-1]);
+			int scope_curr=returnScope((yyvsp[-3].str),scope_stack[index1-1]);
 			b=returntype((yyvsp[-3].str),scope_curr);
 		}
 		else
 		{
-			int scope_curr1=returnscope((yyvsp[-3].str),scope_stack[index1-1]);
-			if(b!=returntype((yyvsp[-3].str),scope_curr1))
+			int scope_curr1=returnScope((yyvsp[-3].str),scope_stack[index1-1]);
+			if (b!=returntype((yyvsp[-3].str),scope_curr1))
 				printf("\nError : Type Mismatch : Line %d\n",printline());
 		}
-		if(!lookup((yyvsp[-3].str)))
+		if (!lookup((yyvsp[-3].str)))
 		{
-			int currscope=scope_stack[index1-1];
-			//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
-			int scope=returnscope((yyvsp[-3].str),currscope);
-			//printf("Curr scope: %d %d\n", currscope,scope);
-			if(!(scope<=currscope && end[scope]==0))
+			int curr_scope=scope_stack[index1-1];
+			//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
+			int scope=returnScope((yyvsp[-3].str),curr_scope);
+			//printf("Curr scope: %d %d\n", curr_scope,scope);
+			if (!(scope<=curr_scope && end[scope]==0))
 				printf("\nError : Variable %s out of scope : Line %d\n",(yyvsp[-3].str),printline());
 		}
 	  else
 	    printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[-3].str),printline());
 
-		if(isArray((yyvsp[-3].str))==0)
+		if (isArray((yyvsp[-3].str))==0)
 			printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 		float bound = isArray((yyvsp[-3].str));
 
-		if(isArray((yyvsp[-3].str)) && (atoi((yyvsp[-1].str)) >= bound || atoi((yyvsp[-1].str)) < 0) )
+		if (isArray((yyvsp[-3].str)) && (atoi((yyvsp[-1].str)) >= bound || atoi((yyvsp[-1].str)) < 0) )
 			printf("\nError: Array subscript out of bounds : Line %d\n", printline());
 
 	}
@@ -1949,18 +1949,18 @@ yyreduce:
   case 69:
 #line 591 "sem.y" /* yacc.c:1646  */
     {
-			if( (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str)))) && (yyvsp[-4].ival)==258)
+			if ( (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str)))) && (yyvsp[-4].ival)==258)
 				printf("\nError : Type Mismatch : Line %d\n",printline());
 
-			if(!lookup((yyvsp[-3].str)))
+			if (!lookup((yyvsp[-3].str)))
 			{
-				int currscope=scope_stack[index1-1];
-				int previous_scope=returnscope((yyvsp[-3].str),currscope);
-				if(currscope==previous_scope)
+				int curr_scope=scope_stack[index1-1];
+				int previous_scope=returnScope((yyvsp[-3].str),curr_scope);
+				if (curr_scope==previous_scope)
 					printf("\nError : Redeclaration of %s : Line %d\n",(yyvsp[-3].str),printline());
 				else
 				{
-					insert_dup((yyvsp[-3].str),(yyvsp[-4].ival),g_addr,currscope, 0);
+					insert_dup((yyvsp[-3].str),(yyvsp[-4].ival),g_addr,curr_scope, 0);
 					update_value((yyvsp[-3].str),(yyvsp[-1].str),scope_stack[index1-1]);
 					g_addr+=4;
 				}
@@ -1980,15 +1980,15 @@ yyreduce:
   case 70:
 #line 617 "sem.y" /* yacc.c:1646  */
     {
-		if(!lookup((yyvsp[-1].str)))
+		if (!lookup((yyvsp[-1].str)))
 		{
-			int currscope=scope_stack[index1-1];
-			int previous_scope=returnscope((yyvsp[-1].str),currscope);
-			if(currscope==previous_scope)
+			int curr_scope=scope_stack[index1-1];
+			int previous_scope=returnScope((yyvsp[-1].str),curr_scope);
+			if (curr_scope==previous_scope)
 				printf("\nError : Redeclaration of %s : Line %d\n",(yyvsp[-1].str),printline());
 			else
 			{
-				insert_dup((yyvsp[-1].str),(yyvsp[-2].ival),g_addr,currscope, 0);
+				insert_dup((yyvsp[-1].str),(yyvsp[-2].ival),g_addr,curr_scope, 0);
 				g_addr+=4;
 			}
 		}
@@ -2006,13 +2006,13 @@ yyreduce:
   case 71:
 #line 638 "sem.y" /* yacc.c:1646  */
     {
-				if(!lookup((yyvsp[-1].str)))
+				if (!lookup((yyvsp[-1].str)))
 				{
-					int currscope=scope_stack[index1-1];
-					//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
-					int scope=returnscope((yyvsp[-1].str),currscope);
-					//printf("Curr scope: %d %d\n", currscope,scope);
-					if(!(scope<=currscope && end[scope]==0))
+					int curr_scope=scope_stack[index1-1];
+					//printf("\ncurr_scope%d Current Scope: %d\n", curr_scope, scope_stack[index1-1]);
+					int scope=returnScope((yyvsp[-1].str),curr_scope);
+					//printf("Curr scope: %d %d\n", curr_scope,scope);
+					if (!(scope<=curr_scope && end[scope]==0))
 						printf("\nError : Variable %s out of scope : Line %d\n",(yyvsp[-1].str),printline());
 				}
 				else
@@ -2030,7 +2030,7 @@ yyreduce:
 						int scope=scope_stack[index1-1];
 						insertscope((yyvsp[-4].str), scope);
 						g_addr+=4;
-						if(atoi((yyvsp[-2].str))<=0)
+						if (atoi((yyvsp[-2].str))<=0)
 						{
 							printf("\nError: Illegal array subscript %d : Line %d\n", atoi((yyvsp[-2].str)), printline());
 						}
@@ -2275,7 +2275,7 @@ yyreturn:
 int main(int argc, char *argv[])
 {
 	yyin =fopen(argv[1],"r");
-	if(!yyparse())
+	if (!yyparse())
 	{
 		printf("Parsing done\n");
 		print();
