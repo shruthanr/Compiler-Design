@@ -66,10 +66,15 @@
 
 	#include <stdio.h>
 	#include <stdlib.h>
+<<<<<<< Updated upstream
 	int g_addr = 0;
 	int i=1;
+=======
+	int g_addr = 100;
+	int scope_incrementer=1;
+>>>>>>> Stashed changes
 	int j=8;
-	int stack[100];
+	int scope_stack[100];
 	int index1=0;
 	int end[100];
 	int arr[10];
@@ -125,6 +130,7 @@
 
 	int isArray(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -140,6 +146,7 @@
 
 	int retNumParams(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -152,6 +159,7 @@
 
 	void getParams(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -362,7 +370,11 @@
 		return;
 	}
 
+<<<<<<< Updated upstream
 #line 366 "y.tab.c" /* yacc.c:339  */
+=======
+#line 368 "y.tab.c" /* yacc.c:339  */
+>>>>>>> Stashed changes
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -441,13 +453,21 @@ extern int yydebug;
 
 union YYSTYPE
 {
+<<<<<<< Updated upstream
 #line 309 "sem.y" /* yacc.c:355  */
+=======
+#line 311 "sem.y" /* yacc.c:355  */
+>>>>>>> Stashed changes
 
 		int ival;
 		char *str;
 	
 
+<<<<<<< Updated upstream
 #line 451 "y.tab.c" /* yacc.c:355  */
+=======
+#line 453 "y.tab.c" /* yacc.c:355  */
+>>>>>>> Stashed changes
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -464,7 +484,11 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
+<<<<<<< Updated upstream
 #line 468 "y.tab.c" /* yacc.c:358  */
+=======
+#line 470 "y.tab.c" /* yacc.c:358  */
+>>>>>>> Stashed changes
 
 #ifdef short
 # undef short
@@ -763,6 +787,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
+<<<<<<< Updated upstream
        0,   316,   316,   317,   318,   319,   323,   339,   357,   358,
      361,   362,   363,   364,   365,   366,   370,   374,   375,   376,
      380,   381,   382,   383,   384,   390,   391,   392,   393,   396,
@@ -770,6 +795,15 @@ static const yytype_uint16 yyrline[] =
      443,   463,   471,   472,   473,   481,   482,   485,   500,   528,
      562,   563,   564,   565,   566,   567,   568,   569,   570,   571,
      574,   575,   579,   606,   627,   641,   653
+=======
+       0,   318,   318,   319,   320,   321,   325,   341,   359,   360,
+     363,   364,   365,   366,   367,   368,   372,   376,   377,   378,
+     382,   383,   384,   385,   386,   392,   393,   394,   395,   398,
+     415,   425,   426,   427,   428,   432,   433,   437,   441,   442,
+     445,   465,   473,   474,   475,   483,   484,   487,   502,   530,
+     564,   565,   566,   567,   568,   569,   570,   571,   572,   573,
+     576,   577,   581,   608,   629,   643,   655
+>>>>>>> Stashed changes
 };
 #endif
 
@@ -1637,7 +1671,11 @@ yyreduce:
   switch (yyn)
     {
         case 6:
+<<<<<<< Updated upstream
 #line 323 "sem.y" /* yacc.c:1646  */
+=======
+#line 325 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	 
 	if ((yyvsp[-4].ival)!=returntype_func(curr_type))
@@ -1654,11 +1692,19 @@ yyreduce:
 		g_addr+=4;
 	}
 	}
+<<<<<<< Updated upstream
 #line 1658 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 339 "sem.y" /* yacc.c:1646  */
+=======
+#line 1660 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 341 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	
 
@@ -1676,6 +1722,7 @@ yyreduce:
 		g_addr+=4;
 	}
 	}
+<<<<<<< Updated upstream
 #line 1680 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1693,12 +1740,32 @@ yyreduce:
 
   case 24:
 #line 384 "sem.y" /* yacc.c:1646  */
+=======
+#line 1682 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 359 "sem.y" /* yacc.c:1646  */
+    { nP = 1; fname[nP-1] = (yyvsp[-1].ival); }
+#line 1688 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 360 "sem.y" /* yacc.c:1646  */
+    { nP++; fname[nP-1] = (yyvsp[-1].ival); }
+#line 1694 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 386 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 					if(!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str))))
 						storereturn(curr_type,FLOAT);
 					else
 						storereturn(curr_type,INT); curr_type++;
 				}
+<<<<<<< Updated upstream
 #line 1703 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1710,6 +1777,19 @@ yyreduce:
 
   case 29:
 #line 396 "sem.y" /* yacc.c:1646  */
+=======
+#line 1705 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 392 "sem.y" /* yacc.c:1646  */
+    {storereturn(curr_type,VOID); curr_type++;}
+#line 1711 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 29:
+#line 398 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	if(lookup((yyvsp[-4].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-4].str), printline());
@@ -1727,11 +1807,19 @@ yyreduce:
 	}
 	
 }
+<<<<<<< Updated upstream
 #line 1731 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 413 "sem.y" /* yacc.c:1646  */
+=======
+#line 1733 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 30:
+#line 415 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	if(lookup((yyvsp[-3].str)))
 		printf("\nError: Undeclared function %s : Line %d\n", (yyvsp[-3].str), printline());
@@ -1741,6 +1829,7 @@ yyreduce:
 			printf("\nError : Parameter list does not match signature : Line %d\n", printline()); 
 	}
 }
+<<<<<<< Updated upstream
 #line 1745 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1770,16 +1859,47 @@ yyreduce:
 
   case 40:
 #line 444 "sem.y" /* yacc.c:1646  */
+=======
+#line 1747 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 425 "sem.y" /* yacc.c:1646  */
+    { temptype = returntype((yyvsp[0].str), scope_stack[index1-1]); it = 0; fTypes2[it] = temptype; }
+#line 1753 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 426 "sem.y" /* yacc.c:1646  */
+    { temptype = temp; it = 0; fTypes2[it] = temptype; }
+#line 1759 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 427 "sem.y" /* yacc.c:1646  */
+    { it++; temptype = returntype((yyvsp[0].str), scope_stack[index1-1]); fTypes2[it] = temptype;}
+#line 1765 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 34:
+#line 428 "sem.y" /* yacc.c:1646  */
+    { temptype = temp; it++; fTypes2[it] = temptype;}
+#line 1771 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 40:
+#line 446 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	  c=0;
-		int scope_curr=returnscope((yyvsp[-2].str),stack[index1-1]);
+		int scope_curr=returnscope((yyvsp[-2].str),scope_stack[index1-1]);
 		//printf("Scope: %d",scope_curr);
 		int type=returntype((yyvsp[-2].str),scope_curr);
 		if((!(strspn((yyvsp[0].str),"0123456789")==strlen((yyvsp[0].str)))) && type==258)
 			printf("\nError : Type Mismatch : Line %d\n",printline());
 		if(!lookup((yyvsp[-2].str)))
 		{
-			int currscope=stack[index1-1];
+			int currscope=scope_stack[index1-1];
 			int scope=returnscope((yyvsp[-2].str),currscope);
 			if((scope<=currscope && end[scope]==0) && !(scope==0))
 				update_value((yyvsp[-2].str),(yyvsp[0].str),currscope);
@@ -1788,11 +1908,19 @@ yyreduce:
 				printf("\nError: Array Identfier has no subscript: Line %d\n", printline());
 
 		}
+<<<<<<< Updated upstream
 #line 1792 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 463 "sem.y" /* yacc.c:1646  */
+=======
+#line 1794 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 41:
+#line 465 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 					if(lookup((yyvsp[-2].str)))
 						printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-2].str),printline());
@@ -1801,11 +1929,19 @@ yyreduce:
 								printf("\nError: Array identfier has no subscript: Line %d\n", printline());
 
 				}
+<<<<<<< Updated upstream
 #line 1805 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
 #line 473 "sem.y" /* yacc.c:1646  */
+=======
+#line 1807 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 475 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 		if(lookup((yyvsp[0].str)))
 			printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[0].str),printline());
@@ -1814,11 +1950,19 @@ yyreduce:
 				printf("\nError: Non-array variable used as an array: Line %d\n", printline());
 
 		}
+<<<<<<< Updated upstream
 #line 1818 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
 #line 485 "sem.y" /* yacc.c:1646  */
+=======
+#line 1820 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 487 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 			if(lookup((yyvsp[-5].str)))
 				printf("\nUndeclared Variable %s : Line %d\n",(yyvsp[-5].str),printline());
@@ -1832,11 +1976,19 @@ yyreduce:
 					printf("\nError: Array subscript out of bounds : Line %d\n", printline());
 
 		}
+<<<<<<< Updated upstream
 #line 1836 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
 #line 500 "sem.y" /* yacc.c:1646  */
+=======
+#line 1838 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 502 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 	if(isArray((yyvsp[0].str)))
 	 printf("\nError: Array identifier has no subscript: Line %d\n", printline());
@@ -1844,19 +1996,19 @@ yyreduce:
 	if(c==0)
 	{
 		c=1;
-		int scope_curr=returnscope((yyvsp[0].str),stack[index1-1]);
+		int scope_curr=returnscope((yyvsp[0].str),scope_stack[index1-1]);
 		b=returntype((yyvsp[0].str),scope_curr);
 	}
 	else
 	{
-		int scope_curr1=returnscope((yyvsp[0].str),stack[index1-1]);
+		int scope_curr1=returnscope((yyvsp[0].str),scope_stack[index1-1]);
 		if(b!=returntype((yyvsp[0].str),scope_curr1))
 			printf("\nError : Type Mismatch : Line %d\n",printline());
 	}
 	if(!lookup((yyvsp[0].str)))
 	{
-		int currscope=stack[index1-1];
-		//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+		int currscope=scope_stack[index1-1];
+		//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 		int scope=returnscope((yyvsp[0].str),currscope);
 		//printf("Curr scope: %d %d\n", currscope,scope);
 		if(!(scope<=currscope && end[scope]==0))
@@ -1865,28 +2017,36 @@ yyreduce:
   else
     printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[0].str),printline());
 	}
+<<<<<<< Updated upstream
 #line 1869 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 528 "sem.y" /* yacc.c:1646  */
+=======
+#line 1871 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 530 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 		if(c==0)
 		{
 			c=1;
-			int scope_curr=returnscope((yyvsp[-3].str),stack[index1-1]);
+			int scope_curr=returnscope((yyvsp[-3].str),scope_stack[index1-1]);
 			b=returntype((yyvsp[-3].str),scope_curr);
 		}
 		else
 		{
-			int scope_curr1=returnscope((yyvsp[-3].str),stack[index1-1]);
+			int scope_curr1=returnscope((yyvsp[-3].str),scope_stack[index1-1]);
 			if(b!=returntype((yyvsp[-3].str),scope_curr1))
 				printf("\nError : Type Mismatch : Line %d\n",printline());
 		}
 		if(!lookup((yyvsp[-3].str)))
 		{
-			int currscope=stack[index1-1];
-			//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+			int currscope=scope_stack[index1-1];
+			//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 			int scope=returnscope((yyvsp[-3].str),currscope);
 			//printf("Curr scope: %d %d\n", currscope,scope);
 			if(!(scope<=currscope && end[scope]==0))
@@ -1904,6 +2064,7 @@ yyreduce:
 			printf("\nError: Array subscript out of bounds : Line %d\n", printline());
 
 	}
+<<<<<<< Updated upstream
 #line 1908 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1921,41 +2082,68 @@ yyreduce:
 
   case 62:
 #line 580 "sem.y" /* yacc.c:1646  */
+=======
+#line 1910 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 576 "sem.y" /* yacc.c:1646  */
+    { temp = 258;}
+#line 1916 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 577 "sem.y" /* yacc.c:1646  */
+    { temp = 259;}
+#line 1922 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 582 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 			if( (!(strspn((yyvsp[-1].str),"0123456789")==strlen((yyvsp[-1].str)))) && (yyvsp[-4].ival)==258)
 				printf("\nError : Type Mismatch : Line %d\n",printline());
 
 			if(!lookup((yyvsp[-3].str)))
 			{
-				int currscope=stack[index1-1];
+				int currscope=scope_stack[index1-1];
 				int previous_scope=returnscope((yyvsp[-3].str),currscope);
 				if(currscope==previous_scope)
 					printf("\nError : Redeclaration of %s : Line %d\n",(yyvsp[-3].str),printline());
 				else
 				{
 					insert_dup((yyvsp[-3].str),(yyvsp[-4].ival),g_addr,currscope, 0);
-					update_value((yyvsp[-3].str),(yyvsp[-1].str),stack[index1-1]);
+					update_value((yyvsp[-3].str),(yyvsp[-1].str),scope_stack[index1-1]);
 					g_addr+=4;
 				}
 			}
 			else
 			{
-				int scope=stack[index1-1];
+				int scope=scope_stack[index1-1];
 				insert((yyvsp[-3].str),(yyvsp[-4].ival),g_addr, 0);
 				insertscope((yyvsp[-3].str),scope);
-				update_value((yyvsp[-3].str),(yyvsp[-1].str),stack[index1-1]);
+				update_value((yyvsp[-3].str),(yyvsp[-1].str),scope_stack[index1-1]);
 				g_addr+=4;
 			}
 		}
+<<<<<<< Updated upstream
 #line 1951 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 606 "sem.y" /* yacc.c:1646  */
+=======
+#line 1953 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 608 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 		if(!lookup((yyvsp[-1].str)))
 		{
-			int currscope=stack[index1-1];
+			int currscope=scope_stack[index1-1];
 			int previous_scope=returnscope((yyvsp[-1].str),currscope);
 			if(currscope==previous_scope)
 				printf("\nError : Redeclaration of %s : Line %d\n",(yyvsp[-1].str),printline());
@@ -1967,22 +2155,30 @@ yyreduce:
 		}
 		else
 		{
-			int scope=stack[index1-1];
+			int scope=scope_stack[index1-1];
 			insert((yyvsp[-1].str),(yyvsp[-2].ival),g_addr, 0);
 			insertscope((yyvsp[-1].str),scope);
 			g_addr+=4;
 		}
 	}
+<<<<<<< Updated upstream
 #line 1977 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
 #line 627 "sem.y" /* yacc.c:1646  */
+=======
+#line 1979 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 629 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 				if(!lookup((yyvsp[-1].str)))
 				{
-					int currscope=stack[index1-1];
-					//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+					int currscope=scope_stack[index1-1];
+					//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 					int scope=returnscope((yyvsp[-1].str),currscope);
 					//printf("Curr scope: %d %d\n", currscope,scope);
 					if(!(scope<=currscope && end[scope]==0))
@@ -1991,16 +2187,24 @@ yyreduce:
 				else
 					printf("\nError : Undeclared Variable %s : Line %d\n",(yyvsp[-1].str),printline());
 				}
+<<<<<<< Updated upstream
 #line 1995 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
 #line 641 "sem.y" /* yacc.c:1646  */
+=======
+#line 1997 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 643 "sem.y" /* yacc.c:1646  */
+>>>>>>> Stashed changes
     {
 						insert((yyvsp[-4].str),ARRAY,g_addr,1);
 						insert((yyvsp[-4].str),(yyvsp[-5].ival),g_addr,1);
-						update_value((yyvsp[-4].str),(yyvsp[-2].str),stack[index1-1]);
-						int scope=stack[index1-1];
+						update_value((yyvsp[-4].str),(yyvsp[-2].str),scope_stack[index1-1]);
+						int scope=scope_stack[index1-1];
 						insertscope((yyvsp[-4].str), scope);
 						g_addr+=4;
 						if(atoi((yyvsp[-2].str))<=0)
@@ -2008,11 +2212,19 @@ yyreduce:
 							printf("\nError: Illegal array subscript %d : Line %d\n", atoi((yyvsp[-2].str)), printline());
 						}
 					}
+<<<<<<< Updated upstream
 #line 2012 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
 #line 2016 "y.tab.c" /* yacc.c:1646  */
+=======
+#line 2014 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 2018 "y.tab.c" /* yacc.c:1646  */
+>>>>>>> Stashed changes
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2240,7 +2452,11 @@ yyreturn:
 #endif
   return yyresult;
 }
+<<<<<<< Updated upstream
 #line 656 "sem.y" /* yacc.c:1906  */
+=======
+#line 658 "sem.y" /* yacc.c:1906  */
+>>>>>>> Stashed changes
 
 
 #include "lex.yy.c"
@@ -2273,18 +2489,18 @@ int printline()
 
 void block_start()
 {
-	stack[index1]=i;
-	i++;
+	scope_stack[index1]=scope_incrementer;
+	scope_incrementer++;
 	index1++;
-	//printf("\n\nTop of stack changed to: %d at line %d", stack[index1-1], yylineno);
+	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
 	return;
 }
 
 void block_end()
 {
 	index1--;
-	//printf("\n\nTop of stack changed to: %d at line %d", stack[index1-1], yylineno);
-	end[stack[index1]]=1;
-	stack[index1]=0;
+	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
+	end[scope_stack[index1]]=1;
+	scope_stack[index1]=0;
 	return;
 }

@@ -1,10 +1,15 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
+<<<<<<< Updated upstream
 	int g_addr = 0;
 	int i=1;
+=======
+	int g_addr = 100;
+	int scope_incrementer=1;
+>>>>>>> Stashed changes
 	int j=8;
-	int stack[100];
+	int scope_stack[100];
 	int index1=0;
 	int end[100];
 	int arr[10];
@@ -60,6 +65,7 @@
 
 	int isArray(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -75,6 +81,7 @@
 
 	int retNumParams(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -87,6 +94,7 @@
 
 	void getParams(char* a)
 	{
+		int i;
 		for(i=0;i<=n;i++)
 		{
 			if(!strcmp(a,st[i].token))
@@ -420,9 +428,9 @@ function_call: ID '(' call_list ')' ';' {
 	}
 };
 
-call_list : ID { temptype = returntype($1, stack[index1-1]); it = 0; fTypes2[it] = temptype; }
+call_list : ID { temptype = returntype($1, scope_stack[index1-1]); it = 0; fTypes2[it] = temptype; }
 	| consttype { temptype = temp; it = 0; fTypes2[it] = temptype; }
-	| call_list ',' ID { it++; temptype = returntype($3, stack[index1-1]); fTypes2[it] = temptype;}
+	| call_list ',' ID { it++; temptype = returntype($3, scope_stack[index1-1]); fTypes2[it] = temptype;}
 	| call_list ',' consttype { temptype = temp; it++; fTypes2[it] = temptype;}
 	;
 
@@ -443,14 +451,14 @@ expr1
 secondary_assignment : ID '=' secondary_assignment
 	{
 	  c=0;
-		int scope_curr=returnscope($1,stack[index1-1]);
+		int scope_curr=returnscope($1,scope_stack[index1-1]);
 		//printf("Scope: %d",scope_curr);
 		int type=returntype($1,scope_curr);
 		if((!(strspn($3,"0123456789")==strlen($3))) && type==258)
 			printf("\nError : Type Mismatch : Line %d\n",printline());
 		if(!lookup($1))
 		{
-			int currscope=stack[index1-1];
+			int currscope=scope_stack[index1-1];
 			int scope=returnscope($1,currscope);
 			if((scope<=currscope && end[scope]==0) && !(scope==0))
 				update_value($1,$3,currscope);
@@ -504,19 +512,19 @@ exp : ID {
 	if(c==0)
 	{
 		c=1;
-		int scope_curr=returnscope($1,stack[index1-1]);
+		int scope_curr=returnscope($1,scope_stack[index1-1]);
 		b=returntype($1,scope_curr);
 	}
 	else
 	{
-		int scope_curr1=returnscope($1,stack[index1-1]);
+		int scope_curr1=returnscope($1,scope_stack[index1-1]);
 		if(b!=returntype($1,scope_curr1))
 			printf("\nError : Type Mismatch : Line %d\n",printline());
 	}
 	if(!lookup($1))
 	{
-		int currscope=stack[index1-1];
-		//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+		int currscope=scope_stack[index1-1];
+		//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 		int scope=returnscope($1,currscope);
 		//printf("Curr scope: %d %d\n", currscope,scope);
 		if(!(scope<=currscope && end[scope]==0))
@@ -529,19 +537,19 @@ exp : ID {
 		if(c==0)
 		{
 			c=1;
-			int scope_curr=returnscope($1,stack[index1-1]);
+			int scope_curr=returnscope($1,scope_stack[index1-1]);
 			b=returntype($1,scope_curr);
 		}
 		else
 		{
-			int scope_curr1=returnscope($1,stack[index1-1]);
+			int scope_curr1=returnscope($1,scope_stack[index1-1]);
 			if(b!=returntype($1,scope_curr1))
 				printf("\nError : Type Mismatch : Line %d\n",printline());
 		}
 		if(!lookup($1))
 		{
-			int currscope=stack[index1-1];
-			//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+			int currscope=scope_stack[index1-1];
+			//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 			int scope=returnscope($1,currscope);
 			//printf("Curr scope: %d %d\n", currscope,scope);
 			if(!(scope<=currscope && end[scope]==0))
@@ -583,30 +591,30 @@ Declaration
 
 			if(!lookup($2))
 			{
-				int currscope=stack[index1-1];
+				int currscope=scope_stack[index1-1];
 				int previous_scope=returnscope($2,currscope);
 				if(currscope==previous_scope)
 					printf("\nError : Redeclaration of %s : Line %d\n",$2,printline());
 				else
 				{
 					insert_dup($2,$1,g_addr,currscope, 0);
-					update_value($2,$4,stack[index1-1]);
+					update_value($2,$4,scope_stack[index1-1]);
 					g_addr+=4;
 				}
 			}
 			else
 			{
-				int scope=stack[index1-1];
+				int scope=scope_stack[index1-1];
 				insert($2,$1,g_addr, 0);
 				insertscope($2,scope);
-				update_value($2,$4,stack[index1-1]);
+				update_value($2,$4,scope_stack[index1-1]);
 				g_addr+=4;
 			}
 		}
 	| Type ID ';' {
 		if(!lookup($2))
 		{
-			int currscope=stack[index1-1];
+			int currscope=scope_stack[index1-1];
 			int previous_scope=returnscope($2,currscope);
 			if(currscope==previous_scope)
 				printf("\nError : Redeclaration of %s : Line %d\n",$2,printline());
@@ -618,7 +626,7 @@ Declaration
 		}
 		else
 		{
-			int scope=stack[index1-1];
+			int scope=scope_stack[index1-1];
 			insert($2,$1,g_addr, 0);
 			insertscope($2,scope);
 			g_addr+=4;
@@ -627,8 +635,8 @@ Declaration
 	| secondary_assignment ';'  {
 				if(!lookup($1))
 				{
-					int currscope=stack[index1-1];
-					//printf("\ncurrscope%d Current Scope: %d\n", currscope, stack[index1-1]);
+					int currscope=scope_stack[index1-1];
+					//printf("\ncurrscope%d Current Scope: %d\n", currscope, scope_stack[index1-1]);
 					int scope=returnscope($1,currscope);
 					//printf("Curr scope: %d %d\n", currscope,scope);
 					if(!(scope<=currscope && end[scope]==0))
@@ -641,8 +649,8 @@ Declaration
 	| Type ID '[' INT_CONST ']' ';' {
 						insert($2,ARRAY,g_addr,1);
 						insert($2,$1,g_addr,1);
-						update_value($2,$4,stack[index1-1]);
-						int scope=stack[index1-1];
+						update_value($2,$4,scope_stack[index1-1]);
+						int scope=scope_stack[index1-1];
 						insertscope($2, scope);
 						g_addr+=4;
 						if(atoi($4)<=0)
@@ -685,18 +693,18 @@ int printline()
 
 void block_start()
 {
-	stack[index1]=i;
-	i++;
+	scope_stack[index1]=scope_incrementer;
+	scope_incrementer++;
 	index1++;
-	//printf("\n\nTop of stack changed to: %d at line %d", stack[index1-1], yylineno);
+	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
 	return;
 }
 
 void block_end()
 {
 	index1--;
-	//printf("\n\nTop of stack changed to: %d at line %d", stack[index1-1], yylineno);
-	end[stack[index1]]=1;
-	stack[index1]=0;
+	//printf("\n\nTop of scope_stack changed to: %d at line %d", scope_stack[index1-1], yylineno);
+	end[scope_stack[index1]]=1;
+	scope_stack[index1]=0;
 	return;
 }
