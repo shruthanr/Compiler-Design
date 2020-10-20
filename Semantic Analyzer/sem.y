@@ -1,7 +1,7 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
-	int g_addr = 100;
+	int g_addr = 0;
 	int i=1;
 	int j=8;
 	int stack[100];
@@ -238,7 +238,7 @@
 	{
 		int i,j;
 		printf("\nSymbol Table\n\n");
-		printf("\nAddress\tToken\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tParams\n");
+		printf("\nAddress\tToken\tValue\tScope\tIsArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for(i=0;i<n;i++)
 		{
 			if(st[i].type[0]==258 || st[i].type[0]==261|| st[i].type[0]==262|| st[i].type[0]==263)
@@ -272,24 +272,25 @@
 				else if(st[i].type[j]==262)
 			      		printf("\tSHORT INT");
 			}
+			printf("\t");
 			for(int j=0;j<st[i].numParams;j++)
 			{
 				if(st[i].fType[j]==258)
-					printf("\tINT");
+					printf("INT,");
 				else if(st[i].fType[j]==259)
-					printf("\tFLOAT");
+					printf("FLOAT,");
 				else if(st[i].fType[j]==274)
-					printf("\tFUNCTION");
+					printf("FUNCTION,");
 				else if(st[i].fType[j]==269)
-					printf("\tARRAY");
+					printf("ARRAY,");
 				else if(st[i].fType[j]==260)
-					printf("\tVOID");
+					printf("VOID,");
 				else if(st[i].fType[j]==261)
-			  		printf("\tUNSIGNED INT");
+			  		printf("UNSIGNED INT,");
 				else if(st[i].fType[j]==263)
-			    		printf("\tLONG INT");
+			    		printf("LONG INT,");
 				else if(st[i].fType[j]==262)
-			      		printf("\tSHORT INT");
+			      		printf("SHORT INT,");
 			}
 			printf("\n");
 		}
