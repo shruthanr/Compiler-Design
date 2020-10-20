@@ -1,13 +1,8 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
-<<<<<<< Updated upstream
 	int g_addr = 0;
-	int i=1;
-=======
-	int g_addr = 100;
 	int scope_incrementer=1;
->>>>>>> Stashed changes
 	int j=8;
 	int scope_stack[100];
 	int index1=0;
