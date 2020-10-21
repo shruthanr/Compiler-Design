@@ -12,7 +12,7 @@ digit [0-9]
 "=="                                                            return EQUAL;
 
 [ \t]                                                                      ;
-\n	{yylineno++;}
+\n	{yylineno++                                                             ;}
 
 "{"	{block_start(); return '{';}
 "}"	{block_end(); return '}';}

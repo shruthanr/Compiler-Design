@@ -6,7 +6,9 @@ int main()
 {
     int a = 10;
     float b;
-    int c;
+    float c;
     c = a + b;
+
+    return 0;
 }
 

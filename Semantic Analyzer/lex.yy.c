@@ -836,7 +836,7 @@ case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
 #line 15 "sem.l"
-{yylineno++;}
+{yylineno++                                                             ;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP

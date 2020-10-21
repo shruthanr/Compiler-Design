@@ -6,4 +6,6 @@ int main()
 {
     int arr[20];
     arr[25] = 20;
+
+    return 0;
 }
