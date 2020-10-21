@@ -264,8 +264,6 @@
 					printf("%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
 			
-			// if (Symbol_Table[i].funcFlag == 1)
-			// 	printf("\tFUNCTION");
 
 			for (j=0;j<Symbol_Table[i].tn;j++)
 			{
