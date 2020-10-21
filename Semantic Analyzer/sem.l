@@ -10,9 +10,10 @@ digit [0-9]
 "++"                                                            return INCR;
 "--"                                                            return DECR;
 "=="                                                            return EQUAL;
+"%"                                                             return MOD;
 
 [ \t]                                                                      ;
-\n	{yylineno++                                                             ;}
+\n	{yylineno++                                                            ;}
 
 "{"	{block_start(); return '{';}
 "}"	{block_end(); return '}';}
