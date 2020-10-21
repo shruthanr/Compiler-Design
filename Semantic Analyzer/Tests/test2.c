@@ -8,5 +8,6 @@ int main()
     int b = 20;
     c = a + b;
     printf("%d", c);
-}
 
+    return 0;
+}

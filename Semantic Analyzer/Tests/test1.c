@@ -36,7 +36,7 @@ int main()
 	while(z < 6)
 	{
 		int b=5;
-		while(1)
+		while(b > 0)
 		{
 			int c;
 			int arr3[10];
@@ -48,6 +48,4 @@ int main()
 	{
 		printf("hello");
 	}
-
-	return 0;
 }

@@ -1,6 +1,22 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
+
+	struct symbol_table_structure
+	{
+		int sno;
+		char token[100];
+		int type[100];
+		int tn;
+		int addr;
+		float fvalue;
+		int scope;
+		int arrFlag;
+		int funcFlag;
+		int fType[100]; 
+		int numParams; 
+	}Symbol_Table[100];
+
 	int var_addr = 0;
 	int scope_incrementer=1;
 	int j=8;
@@ -17,21 +33,6 @@
 	int temptype;
 	int it;
 	int temp;
-
-	struct sym
-	{
-		int sno;
-		char token[100];
-		int type[100];
-		int tn;
-		int addr;
-		float fvalue;
-		int scope;
-		int arrFlag;
-		int funcFlag;
-		int fType[100]; 
-		int numParams; 
-	}Symbol_Table[100];
 
 	int n=0, return_types[10];
 
@@ -252,7 +253,7 @@
 		printf("\nToken\tValue\tScope\tisArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for (i=0;i<n;i++)
 		{
-			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263)
+			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263|| Symbol_Table[i].type[0]==274)
 				printf("%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			else
 			{
@@ -469,6 +470,7 @@ expr1
 	| expr1 GT expr1
 	| expr1 EQUAL expr1
 	| secondary_assignment
+	|
 	;
 
 secondary_assignment : ID '=' secondary_assignment
