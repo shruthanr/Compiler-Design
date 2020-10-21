@@ -314,19 +314,19 @@
 		printf("\n------------------------------------------------------------------------------------------");
 		printf("\n\t\t\t\t\tSYMBOL TABLE\n");
 		printf("------------------------------------------------------------------------------------------");
-		printf("\nAddress\tToken\tValue\tScope\tisArray\tArrayDim\tType\tReturn Type\tArguments\n");
+		printf("\nToken\tValue\tScope\tisArray\tArrayDim\tType\tReturn Type\tArguments\n");
 		for (i=0;i<n;i++)
 		{
-			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263|| Symbol_Table[i].type[0]==274)
-				printf("%d\t%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
+			if (Symbol_Table[i].type[0]==258 || Symbol_Table[i].type[0]==261|| Symbol_Table[i].type[0]==262|| Symbol_Table[i].type[0]==263)
+				printf("%s\t%d\t%d\tFalse\t-\t",Symbol_Table[i].token,(int)Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			else
 			{
 				if (Symbol_Table[i].arrFlag)
-					printf("%d\t%s\t-\t%d\tTrue\t%d\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope, (int)Symbol_Table[i].fvalue);
+					printf("%s\t-\t%d\tTrue\t%d\t",Symbol_Table[i].token,Symbol_Table[i].scope, (int)Symbol_Table[i].fvalue);
 				else if (Symbol_Table[i].type[0]==274)
-					printf("%d\t%s\t-\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].scope);
+					printf("%s\t-\t%d\tFalse\t-\t",Symbol_Table[i].token,Symbol_Table[i].scope);
 				else
-					printf("%d\t%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].addr,Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
+					printf("%s\t%.1f\t%d\tFalse\t-\t",Symbol_Table[i].token,Symbol_Table[i].fvalue,Symbol_Table[i].scope);
 			}
 			
 			// if (Symbol_Table[i].funcFlag == 1)
