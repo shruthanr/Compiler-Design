@@ -316,6 +316,7 @@
 %token WHILE FOR IF RETURN PREPROC STRING PRINT FUNCTION ARRAY ELSE
 %token INCR DECR
 %token EQUAL LE LT GE GT
+%token MOD
 
 %left '=' ','
 %left '+' '-'
@@ -589,6 +590,7 @@ exp : ID {
 	| exp '-' exp
 	| exp '*' exp
 	| exp '/' exp
+	| exp MOD INT_CONST
 	| '(' exp '+' exp ')'
 	| '(' exp '-' exp ')'
 	| '(' exp '*' exp ')'
