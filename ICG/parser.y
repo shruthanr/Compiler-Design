@@ -8,10 +8,7 @@
 	void ins();
 	void insV();
 	int flag=0;
-	#define ANSI_COLOR_RED		"\x1b[31m"
-	#define ANSI_COLOR_GREEN	"\x1b[32m"
-	#define ANSI_COLOR_CYAN		"\x1b[36m"
-	#define ANSI_COLOR_RESET	"\x1b[0m"
+	
 	extern char curid[20];
 	extern char curtype[20];
 	extern char curval[20];
@@ -656,12 +653,12 @@ int main(int argc , char **argv)
 
 	if(flag == 0)
 	{
-		printf(ANSI_COLOR_GREEN "Status: Parsing Complete - Valid" ANSI_COLOR_RESET "\n");
-		printf("%30s" ANSI_COLOR_CYAN "SYMBOL TABLE" ANSI_COLOR_RESET "\n", " ");
+		printf("Status: Parsing Complete\n\n");
+		printf("%30s SYMBOL TABLE \n", " ");
 		printf("%30s %s\n", " ", "------------");
 		printST();
 
-		printf("\n\n%30s" ANSI_COLOR_CYAN "CONSTANT TABLE" ANSI_COLOR_RESET "\n", " ");
+		printf("\n\n%30s CONSTANT TABLE \n", " ");
 		printf("%30s %s\n", " ", "--------------");
 		printCT();
 	}
@@ -669,9 +666,9 @@ int main(int argc , char **argv)
 
 void yyerror(char *s)
 {
-	printf(ANSI_COLOR_RED "%d %s %s\n", yylineno, s, yytext);
+	printf("%d %s %s\n", yylineno, s, yytext);
 	flag=1;
-	printf(ANSI_COLOR_RED "Status: Parsing Failed - Invalid\n" ANSI_COLOR_RESET);
+	printf("Status: Parsing Failed\n");
 	exit(7);
 }
 
