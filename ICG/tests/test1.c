@@ -2,7 +2,7 @@
 
 void main()
 {
-	int i,n;
+	int i = 0,n;
 
 	
 		do

@@ -22,6 +22,7 @@
 		int lineno;
 		int length;
 		int params_count;
+		int scope;
 	}ST[1001];
 
 	struct constanttable
@@ -31,8 +32,24 @@
 		int length;
 	}CT[1001];
 
+	int scope_stack[100] = {0};
+	int scope_index = 1;
+	int scope_val = 1;
 	int currnest = 0;
 	extern int yylval;
+
+	void scope_start()
+	{
+		scope_stack[scope_index] = scope_val;
+		scope_val++;
+		scope_index++;
+	}
+
+	void scope_end()
+	{
+		scope_index--;
+		scope_stack[scope_index] = 0;
+	}
 
 	int hash(char *str)
 	{
@@ -126,6 +143,7 @@
 				ST[value].length = strlen(str1);
 				ST[value].nestval = 9999;
 				ST[value].params_count = -1;
+				ST[value].scope = scope_stack[scope_index - 1];
 				insertSTline(str1,yylineno);
 				return;
 			}
@@ -146,6 +164,8 @@
 			ST[pos].length = strlen(str1);
 			ST[pos].nestval = 9999;
 			ST[pos].params_count = -1;
+			ST[pos].scope = scope_stack[scope_index - 1];
+			insertSTline(str1,yylineno);
 		}
 	}
 
@@ -193,6 +213,7 @@
 			ST[pos].nestval = nest;
 			ST[pos].params_count = -1;
 			ST[pos].lineno = yylineno;
+			ST[pos].scope = scope_stack[scope_index - 1];
 		}
 		else
 		{
@@ -408,18 +429,18 @@
 
 	void printST()
 	{
-		printf("%10s | %15s | %10s | %10s | %10s | %15s | %10s |\n","SYMBOL", "CLASS", "TYPE","VALUE", "LINE NO", "NESTING", "PARAMS COUNT");
+		printf("%10s | %15s | %10s | %10s | %10s | %15s | %10s |\n","SYMBOL", "CLASS", "TYPE","VALUE", "LINE NO", "SCOPE", "PARAMS COUNT");
 		for(int i=0;i<100;i++) {
 			printf("-");
 		}
 		printf("\n");
 		for(int i = 0 ; i < 1001 ; i++)
 		{
-			if(ST[i].length == 0)
+			if(ST[i].length == 0 || strcmp(ST[i].class, "Keyword") == 0 || strcmp(ST[i].name, "printf") == 0)
 			{
 				continue;
 			}
-			printf("%10s | %15s | %10s | %10s | %10d | %15d | %10d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].value, ST[i].lineno, ST[i].nestval, ST[i].params_count);
+			printf("%10s | %15s | %10s | %10s | %10d | %15d | %10d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].value, ST[i].lineno, ST[i].scope, ST[i].params_count);
 		}
     }
 
@@ -457,8 +478,8 @@ IN "include"
 [ \n\t] ;
 ";"				{ return(';'); }
 ","				{ return(','); }
-("{")			{ return('{'); }
-("}")			{ return('}'); }
+("{")			{ scope_start(); return('{'); }
+("}")			{ scope_end(); return('}'); }
 "("				{ return('('); }
 ")"				{ return(')'); }
 ("["|"<:")		{ return('['); }

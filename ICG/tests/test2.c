@@ -7,10 +7,12 @@ int myfunc(int a,int b)
 
 void main()
 {
-	int a,b,i;
+	int a = 1;
+	int b,i;
 
-	while(a<3)
+	while(a < 5)
 	{
+		int c;
 		a = a+b;
 		for(i=0;i<b;i++)
 		{
