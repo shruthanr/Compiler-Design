@@ -23,6 +23,7 @@ void fn(int x)
 
 int gnome(long int abc, float xyz)
 {
+	int abc = 10;
 	printf("HI");
 	return 6;
 }
