@@ -1,8 +1,13 @@
 #include <stdio.h>
 
-int myfunc(int a,int b)
+int global_var;
+
+int sample_function()
 {
-	return a+b;
+	int a = 10;
+	int b = 20;
+	int c = (a * b) + (a / b) * b;
+	return c;
 }
 
 void main()
@@ -17,8 +22,7 @@ void main()
 		for(i=0;i<b;i++)
 		{
 			b++;
-			myfunc(a,b);
-
+			c = sample_function();
 		}
 		a++;
 	}
