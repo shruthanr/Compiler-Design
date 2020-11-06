@@ -432,7 +432,7 @@ char gettype(char *s, int flag)
 
 void printST()
 {
-    printf("%15s | %15s | %10s | %10s | %10s | %15s | %10s |\n","SYMBOL", "CLASS", "TYPE","VALUE", "LINE NO", "SCOPE", "PARAMS COUNT");
+    printf("%15s | %13s | %10s | %9s | %10s | %10s | %13s |\n","NAME", "CLASS", "TYPE","SCOPE", "LINE NO", "VALUE", "NO OF PARAMS");
     for(int i=0;i<100;i++) {
         printf("-");
     }
@@ -443,23 +443,35 @@ void printST()
         {
             continue;
         }
-        printf("%15s | %15s | %10s | %10s | %10d | %15d | %10d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].value, ST[i].lineno, ST[i].scope, ST[i].params_count);
+        
+        if(strcmp(ST[i].class, "Identifier") == 0)
+            printf("%15s | %13s | %10s | %9d | %10d | %10s | %13c |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].scope, ST[i].lineno, ST[i].value, '-');
+        else if(strcmp(ST[i].class, "Array") == 0)
+        {
+            printf("%15s | %13s | %10s | %9d | %10d | %10c | %13c |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].scope, ST[i].lineno, '-', '-');
+        }
+        else if(strcmp(ST[i].class, "Function") == 0)
+        {
+            printf("%15s | %13s | %10s | %9d | %10d | %10c | %13d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].scope, ST[i].lineno, '-', ST[i].params_count);
+        }
+        
+        
     }
+    printf("----------------------------------------------------------------------------------------------------\n");
 }
 
 
 void printCT()
 {
-    printf("%10s | %15s\n","NAME", "TYPE");
-    for(int i=0;i<81;i++) {
-        printf("-");
-    }
+    printf("%10s | %25s |\n","NAME", "TYPE");
+    printf("----------------------------------------");
     printf("\n");
     for(int i = 0 ; i < 1001 ; i++)
     {
         if(CT[i].length == 0)
             continue;
 
-        printf("%10s | %15s\n",CT[i].name, CT[i].type);
+        printf("%10s | %25s |\n",CT[i].name, CT[i].type);
     }
+    printf("----------------------------------------\n\n");
 }
