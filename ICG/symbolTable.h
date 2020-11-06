@@ -129,7 +129,7 @@ void insertST(char *str1, char *str2)
 {
     if(lookupST(str1))
     {
-        if(strcmp(ST[lookupST(str1)].class,"Identifier")==0 && strcmp(str2,"Array Identifier")==0)
+        if(strcmp(ST[lookupST(str1)].class,"Identifier")==0 && strcmp(str2,"Array")==0)
         {
             printf("Error use of array\n");
             exit(0);
@@ -359,7 +359,7 @@ int checkarray(char *s)
     {
         if(strcmp(ST[i].name,s)==0)
         {
-            if(strcmp(ST[i].class,"Array Identifier")==0)
+            if(strcmp(ST[i].class,"Array")==0)
             {
                 return 0;
             }
@@ -432,7 +432,7 @@ char gettype(char *s, int flag)
 
 void printST()
 {
-    printf("%10s | %15s | %10s | %10s | %10s | %15s | %10s |\n","SYMBOL", "CLASS", "TYPE","VALUE", "LINE NO", "SCOPE", "PARAMS COUNT");
+    printf("%15s | %15s | %10s | %10s | %10s | %15s | %10s |\n","SYMBOL", "CLASS", "TYPE","VALUE", "LINE NO", "SCOPE", "PARAMS COUNT");
     for(int i=0;i<100;i++) {
         printf("-");
     }
@@ -443,7 +443,7 @@ void printST()
         {
             continue;
         }
-        printf("%10s | %15s | %10s | %10s | %10d | %15d | %10d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].value, ST[i].lineno, ST[i].scope, ST[i].params_count);
+        printf("%15s | %15s | %10s | %10s | %10d | %15d | %10d |\n",ST[i].name, ST[i].class, ST[i].type, ST[i].value, ST[i].lineno, ST[i].scope, ST[i].params_count);
     }
 }
 
