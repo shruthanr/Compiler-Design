@@ -1343,7 +1343,7 @@ case 70:
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
 #line 94 "scanner.l"
-{strcpy(curid,yytext); insertST(yytext, "Array Identifier");  return array_identifier;}
+{strcpy(curid,yytext); insertST(yytext, "Array");  return array_identifier;}
 	YY_BREAK
 case 71:
 /* rule 71 can match eol */
