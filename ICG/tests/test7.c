@@ -5,7 +5,7 @@
 int main()
 {
     int a = 10;
-    float b;
+    char b;
     float c;
     c = a + b;
 

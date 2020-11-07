@@ -7,6 +7,8 @@ int sample_function()
 	int a = 10;
 	int b = 20;
 	int c = (a * b) + (a / b) * b;
+	int arr[10];
+	arr[0] = 1;
 	return c;
 }
 
